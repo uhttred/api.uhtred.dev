@@ -46,13 +46,16 @@ CSRF_TRUSTED_ORIGINS = env('CSRF_TRUSTED_ORIGINS', default=[])
 INSTALLED_APPS = [
     'corsheaders',
     'uhtred.user',
+    'uhtred.base',
+    'uhtred.case',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework'
+    'rest_framework',
+    'martor'
 ]
 
 MIDDLEWARE = [

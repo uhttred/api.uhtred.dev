@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 from django.conf.urls.static import static
 from django.conf import settings
-from django.urls import path
+from django.urls import path, include
 
 
 admin.site.site_url = 'https://uhtred.dev'  # Removes the 'View Site' link
@@ -13,6 +13,7 @@ admin.site.index_title = 'Uhtred'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('martor/', include('martor.urls'))
 ]
 
 if settings.DEBUG:

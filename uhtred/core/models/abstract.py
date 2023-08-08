@@ -5,7 +5,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.utils.timezone import now
 
-from uhtred.core.strings import get_random_string_code
+from uhtred.core.text import get_random_string_code
 
 
 class BaseDateTimeFieldsAbstractModel(models.Model):
