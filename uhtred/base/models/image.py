@@ -1,6 +1,7 @@
 from typing import Tuple, Dict
 
 from django.db import models
+from django.core.validators import FileExtensionValidator
 from django.utils.translation import gettext_lazy as _
 
 from uhtred.core.models.abstract import BaseFieldsAbstractModel
@@ -24,7 +25,9 @@ class Image(BaseFieldsAbstractModel):
         default='')
 
     file = models.ImageField(
-        upload_to=images_upload_to)
+        upload_to=images_upload_to,
+        validators=[
+            FileExtensionValidator(['svg', 'png', 'gif', 'jpg', 'jpeg'])])
 
     thumbnail = models.ImageField(
         verbose_name=_('image thumbnail'),
@@ -32,6 +35,9 @@ class Image(BaseFieldsAbstractModel):
         null=True,
         default=None,
         editable=False)
+    
+    def __str__(self) -> str:
+        return self.name or f'image ({self.id})'
     
     @property
     def url(self):

@@ -22,7 +22,7 @@ class Case(BaseFieldsAbstractModel):
     slug = models.SlugField(
         verbose_name='slug',
         max_length=250,
-        allow_unicode=False)
+        allow_unicode=True)
     
     title = models.CharField(
         verbose_name=_('title'),
@@ -43,25 +43,58 @@ class Case(BaseFieldsAbstractModel):
         default=str)
     
     content = MartorField(
-        verbose_name=_('content'))
+        verbose_name=_('content'),
+        blank=True,
+        default=str)
     pt_content = MartorField(
-        verbose_name=_('pt content'))
+        verbose_name=_('content'),
+        blank=True,
+        default=str)
     
     cover = models.ForeignKey(
         'base.Image',
         verbose_name=_('cover'),
         related_name='case_cover',
-        on_delete=models.CASCADE)
-    banner_light = models.ForeignKey(
+        on_delete=models.SET_NULL,
+        null=True)
+    
+    banner = models.ForeignKey(
         'base.Image',
-        verbose_name=_('banner light'),
-        related_name='case_banner_light',
-        on_delete=models.CASCADE)
+        verbose_name=_('banner'),
+        related_name='case_banner',
+        on_delete=models.SET_NULL,
+        null=True,
+        default=None)
     banner_dark = models.ForeignKey(
         'base.Image',
         verbose_name=_('banner dark'),
         related_name='case_banner_dark',
-        on_delete=models.CASCADE)
+        on_delete=models.SET_NULL,
+        null=True,
+        default=None)
+    
+    brand_logo = models.ForeignKey(
+        'base.Image',
+        verbose_name=_('brand logo'),
+        related_name='case_brand_logo',
+        on_delete=models.SET_NULL,
+        null=True,
+        default=None)
+    brand_logo_dark = models.ForeignKey(
+        'base.Image',
+        verbose_name=_('brand logo dark'),
+        related_name='case_brand_logo_dark',
+        on_delete=models.SET_NULL,
+        null=True,
+        default=None)
+    
+    data = models.JSONField(
+        verbose_name=_('additional data'),
+        default=dict)
+
+    is_active = models.BooleanField(
+        verbose_name=_('is active'),
+        default=False)
 
     def __slugify(self):
         self.slug = slugify(
