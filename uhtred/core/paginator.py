@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from django.utils.translation import gettext_lazy as _
 from django.db.models.query import QuerySet
 
-from core.exceptions import APIError
+from uhtred.core.exceptions import APIError
 
 
 class InitLimitPaginatorMixin(object):

@@ -7,6 +7,7 @@ from martor.widgets import AdminMartorWidget
 
 from uhtred.case.models import Case
 
+
 @admin.register(Case)
 class CaseAdmin(admin.ModelAdmin):
     

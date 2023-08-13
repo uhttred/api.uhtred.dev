@@ -1,3 +1,4 @@
+from typing import Any
 from django.db import models
 from django.db.models.constraints import UniqueConstraint
 from django.utils.translation import gettext_lazy as _
@@ -13,11 +14,32 @@ def case_images_upload_to(instance, filename):
     return f"cases/{instance.article.uid}/{filename}"
 
 
+class CaseManager(models.Manager):
+    
+    def filter(self, *args: Any, **kwargs: Any):
+        return super().filter(
+            is_active=True).filter(*args, **kwargs)
+
+    def search(self, lookup: str):
+        return self.filter(
+            models.Q(title__icontains=lookup) |
+            models.Q(pt_title__icontains=lookup)
+        ).distinct()
+
+
 class Case(BaseFieldsAbstractModel):
     
     class Meta:
         verbose_name = _('case')
         verbose_name_plural = _('cases')
+        constraints = (
+            UniqueConstraint(
+                fields=['title'],
+                name='unique_case_title'),
+            UniqueConstraint(
+                fields=['slug'],
+                name='unique_case_slug')
+        )
     
     slug = models.SlugField(
         verbose_name='slug',
@@ -64,6 +86,7 @@ class Case(BaseFieldsAbstractModel):
         related_name='case_banner',
         on_delete=models.SET_NULL,
         null=True,
+        blank=True,
         default=None)
     banner_dark = models.ForeignKey(
         'base.Image',
@@ -71,6 +94,7 @@ class Case(BaseFieldsAbstractModel):
         related_name='case_banner_dark',
         on_delete=models.SET_NULL,
         null=True,
+        blank=True,
         default=None)
     
     brand_logo = models.ForeignKey(
@@ -79,6 +103,7 @@ class Case(BaseFieldsAbstractModel):
         related_name='case_brand_logo',
         on_delete=models.SET_NULL,
         null=True,
+        blank=True,
         default=None)
     brand_logo_dark = models.ForeignKey(
         'base.Image',
@@ -86,15 +111,19 @@ class Case(BaseFieldsAbstractModel):
         related_name='case_brand_logo_dark',
         on_delete=models.SET_NULL,
         null=True,
+        blank=True,
         default=None)
     
     data = models.JSONField(
         verbose_name=_('additional data'),
+        blank=True,
         default=dict)
 
     is_active = models.BooleanField(
         verbose_name=_('is active'),
         default=False)
+    
+    objects = CaseManager()
 
     def __slugify(self):
         self.slug = slugify(

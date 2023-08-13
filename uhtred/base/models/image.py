@@ -41,7 +41,7 @@ class Image(BaseFieldsAbstractModel):
     
     @property
     def url(self):
-        return None if not self.file else self.file.url
+        return None if not self.file else f'http://localhost:8000{self.file.url}'
     
     @property
     def thumbnail_url(self):
