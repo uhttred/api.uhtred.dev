@@ -15,7 +15,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('martor/', include('martor.urls')),
     path('', include('uhtred.base.urls')),
-    path('', include('uhtred.case.urls'))
+    path('', include('uhtred.case.urls')),
+    path('', include('uhtred.store.urls'))
 ]
 
 if settings.DEBUG:

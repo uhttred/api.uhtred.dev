@@ -16,7 +16,7 @@ def case_images_upload_to(instance, filename):
 
 class CaseManager(models.Manager):
     
-    def filter(self, *args: Any, **kwargs: Any):
+    def default_list(self, *args: Any, **kwargs: Any):
         return super().filter(
             is_active=True).filter(*args, **kwargs)
 
