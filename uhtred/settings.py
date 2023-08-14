@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'uhtred.base',
     'uhtred.case',
     'uhtred.store',
+    'uhtred.insight',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -137,6 +138,9 @@ LANGUAGES = [
 ]
 
 TIME_ZONE = 'Africa/Luanda'
+
+LOCALE_PATHS = (
+    BASE_DIR / '../locale',)
 
 TIME_ZONE = 'UTC'
 

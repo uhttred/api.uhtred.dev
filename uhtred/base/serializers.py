@@ -16,6 +16,6 @@ class TagDetail(DynamicFieldsModelSerializer):
 class PersonDetail(DynamicFieldsModelSerializer):
     class Meta:
         model = Person
-        fields = ['id', 'name', 'headline', 'job_title', 'website', 'avatar']
+        fields = ['id', 'name', 'headline', 'job_title', 'company_name', 'website', 'avatar']
     
     avatar = ImageDetail(read_only=True)

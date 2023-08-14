@@ -13,6 +13,7 @@ class PersonAdmin(admin.ModelAdmin):
         'id',
         'image',
         'name',
+        'company_name',
         'headline',
         'created_at')
     
@@ -30,6 +31,7 @@ class PersonAdmin(admin.ModelAdmin):
             'fields': (
                 'headline',
                 'job_title',
+                'company_name',
                 'website',
                 'avatar',
                 'image')}),

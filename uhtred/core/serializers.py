@@ -3,6 +3,7 @@ from rest_framework import serializers
 
 
 class DynamicFieldsModelSerializer(serializers.ModelSerializer):
+    
     def __init__(self, instance=None,
             exclude: Union[list, tuple] = [],
             fields: Union[list, tuple] = [], **kwargs):
@@ -19,3 +20,12 @@ class DynamicFieldsModelSerializer(serializers.ModelSerializer):
             for key in exclude:
                 if key in existing:
                     self.fields.pop(key)
+    
+    created_at = serializers.DateTimeField(
+        format="%d %B %Y at %H:%M",
+        required=False,
+        read_only=True)
+    updated_at = serializers.DateTimeField(
+        format="%d %B %Y at %H:%M",
+        required=False,
+        read_only=True)

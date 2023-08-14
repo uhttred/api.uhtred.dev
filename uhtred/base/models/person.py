@@ -21,6 +21,12 @@ class Person(BaseFieldsAbstractModel):
     job_title = models.CharField(
         verbose_name=_('job title'),
         max_length=100)
+    
+    company_name = models.CharField(
+        verbose_name=_('company name'),
+        max_length=100,
+        blank=True,
+        default=str)
 
     website = models.URLField(
         verbose_name='website',

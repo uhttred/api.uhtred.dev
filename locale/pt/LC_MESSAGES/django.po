@@ -1,0 +1,344 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-08-14 13:56+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: uhtred/base/admin/image.py:34 uhtred/base/admin/person.py:24
+#: uhtred/base/admin/tag.py:22 uhtred/case/admin/case.py:29
+#: uhtred/insight/admin/insight.py:31 uhtred/store/admin/product.py:23
+#: uhtred/user/admin/user.py:33 uhtred/user/admin/user.py:43
+msgid "Identity"
+msgstr ""
+
+#: uhtred/base/admin/image.py:39
+msgid "Files"
+msgstr ""
+
+#: uhtred/base/admin/image.py:44 uhtred/base/admin/person.py:36
+#: uhtred/base/admin/tag.py:32 uhtred/case/admin/case.py:61
+#: uhtred/insight/admin/insight.py:53 uhtred/store/admin/product.py:38
+msgid "State and Date"
+msgstr ""
+
+#: uhtred/base/admin/person.py:29 uhtred/base/admin/tag.py:27
+#: uhtred/store/admin/product.py:29 uhtred/store/admin/product.py:35
+msgid "Details"
+msgstr ""
+
+#: uhtred/base/models/image.py:17
+msgid "image"
+msgstr ""
+
+#: uhtred/base/models/image.py:18
+msgid "images"
+msgstr ""
+
+#: uhtred/base/models/image.py:21 uhtred/base/models/person.py:14
+#: uhtred/base/models/tag.py:25 uhtred/store/models/product.py:46
+#: uhtred/user/models/user.py:45
+msgid "name"
+msgstr ""
+
+#: uhtred/base/models/image.py:22
+msgid "describe what image is for"
+msgstr ""
+
+#: uhtred/base/models/image.py:33
+msgid "image thumbnail"
+msgstr ""
+
+#: uhtred/base/models/person.py:10 uhtred/base/models/person.py:11
+msgid "person"
+msgstr ""
+
+#: uhtred/base/models/person.py:18
+msgid "headline"
+msgstr ""
+
+#: uhtred/base/models/person.py:22
+msgid "job title"
+msgstr ""
+
+#: uhtred/base/models/tag.py:13
+msgid "tag"
+msgstr ""
+
+#: uhtred/base/models/tag.py:14
+msgid "tags"
+msgstr ""
+
+#: uhtred/base/models/tag.py:35
+msgid "name (PT)"
+msgstr ""
+
+#: uhtred/base/models/tag.py:41 uhtred/case/models/case.py:57
+#: uhtred/insight/models/insight.py:64
+msgid "description"
+msgstr ""
+
+#: uhtred/base/views/tags.py:17
+msgid "global tags listing"
+msgstr ""
+
+#: uhtred/case/admin/case.py:34
+msgid "Basic Details"
+msgstr ""
+
+#: uhtred/case/admin/case.py:40
+msgid "Images"
+msgstr ""
+
+#: uhtred/case/admin/case.py:52
+msgid "English Content"
+msgstr ""
+
+#: uhtred/case/admin/case.py:55
+msgid "Portuguese Content"
+msgstr ""
+
+#: uhtred/case/admin/case.py:58
+msgid "Additional Data"
+msgstr ""
+
+#: uhtred/case/models/case.py:33
+msgid "case"
+msgstr ""
+
+#: uhtred/case/models/case.py:34
+msgid "cases"
+msgstr ""
+
+#: uhtred/case/models/case.py:50 uhtred/insight/models/insight.py:60
+msgid "title"
+msgstr ""
+
+#: uhtred/case/models/case.py:53
+msgid "pt title"
+msgstr ""
+
+#: uhtred/case/models/case.py:62
+msgid "pt description"
+msgstr ""
+
+#: uhtred/case/models/case.py:68 uhtred/case/models/case.py:72
+#: uhtred/insight/models/insight.py:78
+msgid "content"
+msgstr ""
+
+#: uhtred/case/models/case.py:78 uhtred/insight/models/insight.py:54
+#: uhtred/store/models/product.py:40
+msgid "cover"
+msgstr ""
+
+#: uhtred/case/models/case.py:85
+msgid "banner"
+msgstr ""
+
+#: uhtred/case/models/case.py:93
+msgid "banner dark"
+msgstr ""
+
+#: uhtred/case/models/case.py:102
+msgid "brand logo"
+msgstr ""
+
+#: uhtred/case/models/case.py:110
+msgid "brand logo dark"
+msgstr ""
+
+#: uhtred/case/models/case.py:118
+msgid "additional data"
+msgstr ""
+
+#: uhtred/case/models/case.py:123 uhtred/insight/models/insight.py:94
+#: uhtred/store/models/product.py:64
+msgid "is active"
+msgstr ""
+
+#: uhtred/case/views/cases.py:17 uhtred/insight/views/insights.py:17
+msgid "cases listing"
+msgstr ""
+
+#: uhtred/core/exceptions.py:11
+msgid "Invalid input."
+msgstr ""
+
+#: uhtred/core/models/abstract.py:15
+msgid "created at"
+msgstr ""
+
+#: uhtred/core/models/abstract.py:16
+msgid "updated at"
+msgstr ""
+
+#: uhtred/core/models/abstract.py:27
+msgid "unique id"
+msgstr ""
+
+#: uhtred/core/paginator.py:180
+msgid "the value '{}' of '{}' parameter not in order choices"
+msgstr ""
+
+#: uhtred/core/paginator.py:193
+msgid "'{}' parameter must be an integer between {} and {}"
+msgstr ""
+
+#: uhtred/core/paginator.py:206
+#, python-format
+msgid "'%s' parameter must be an integer starting form 0"
+msgstr ""
+
+#: uhtred/core/validators.py:16
+msgid ""
+"Invalid username. Username must contain only letters, numbers and the "
+"characters ./-/_ . Length must be between 3 and 25 characters"
+msgstr ""
+
+#: uhtred/core/validators.py:31
+msgid ""
+"1 to 40 characters maximum. It must contain only letters and / or numbers. "
+msgstr ""
+
+#: uhtred/core/validators.py:44
+msgid "Invalid email"
+msgstr ""
+
+#: uhtred/core/validators.py:56
+msgid "Invalid national number of angola"
+msgstr ""
+
+#: uhtred/core/validators.py:78
+msgid "Must not contain sequence of dots"
+msgstr ""
+
+#: uhtred/core/validators.py:90
+msgid ""
+"Weak password. 8 characters minimum. Must contain at least one capital "
+"letter, one lower case and one number"
+msgstr ""
+
+#: uhtred/insight/admin/insight.py:39
+msgid "English Details"
+msgstr ""
+
+#: uhtred/insight/admin/insight.py:44
+msgid "Portuguese Details"
+msgstr ""
+
+#: uhtred/insight/admin/insight.py:49
+msgid "Additional"
+msgstr ""
+
+#: uhtred/insight/models/insight.py:30
+msgid "insight"
+msgstr ""
+
+#: uhtred/insight/models/insight.py:31
+msgid "insights"
+msgstr ""
+
+#: uhtred/insight/models/insight.py:67
+msgid "title (PT)"
+msgstr ""
+
+#: uhtred/insight/models/insight.py:73
+msgid "description (PT)"
+msgstr "descrição (PT)"
+
+#: uhtred/insight/models/insight.py:81
+msgid "content (PT)"
+msgstr "Conteúdo (PT)"
+
+#: uhtred/insight/models/insight.py:90
+msgid "visualisations"
+msgstr ""
+
+#: uhtred/insight/models/insight.py:98
+msgid "published at"
+msgstr ""
+
+#: uhtred/store/models/product.py:22
+msgid "product"
+msgstr ""
+
+#: uhtred/store/models/product.py:23
+msgid "products"
+msgstr ""
+
+#: uhtred/store/models/product.py:50
+msgid "buy at"
+msgstr ""
+
+#: uhtred/store/models/product.py:53
+msgid "price"
+msgstr ""
+
+#: uhtred/store/views/products.py:17
+msgid "products listing"
+msgstr ""
+
+#: uhtred/urls.py:9 uhtred/urls.py:10
+msgid "Uhtred Administration"
+msgstr ""
+
+#: uhtred/user/admin/user.py:35 uhtred/user/admin/user.py:45
+msgid "Contact"
+msgstr ""
+
+#: uhtred/user/admin/user.py:37 uhtred/user/admin/user.py:47
+msgid "Permissions"
+msgstr ""
+
+#: uhtred/user/models/user.py:16 uhtred/user/models/user.py:100
+msgid "collaborator"
+msgstr ""
+
+#: uhtred/user/models/user.py:17 uhtred/user/models/user.py:78
+msgid "member"
+msgstr ""
+
+#: uhtred/user/models/user.py:35
+msgid "user"
+msgstr ""
+
+#: uhtred/user/models/user.py:36
+msgid "users"
+msgstr ""
+
+#: uhtred/user/models/user.py:47
+msgid "role"
+msgstr "cargo"
+
+#: uhtred/user/models/user.py:48
+msgid "email address"
+msgstr ""
+
+#: uhtred/user/models/user.py:51
+msgid "username"
+msgstr ""
+
+#: uhtred/user/models/user.py:57
+msgid "A user with that username already exists"
+msgstr ""
+
+#: uhtred/user/models/user.py:79
+msgid "members"
+msgstr ""
+
+#: uhtred/user/models/user.py:101
+msgid "collaborators"
+msgstr "colaboradores"

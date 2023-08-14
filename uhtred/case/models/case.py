@@ -21,7 +21,7 @@ class CaseManager(models.Manager):
             is_active=True).filter(*args, **kwargs)
 
     def search(self, lookup: str):
-        return self.filter(
+        return self.default_list(
             models.Q(title__icontains=lookup) |
             models.Q(pt_title__icontains=lookup)
         ).distinct()
