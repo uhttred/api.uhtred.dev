@@ -14,6 +14,7 @@ from uhtred.base.models import Tag
 class TagViewSet(ViewSet, Paginator):
 
     lookup_field = 'slug'
+    lookup_value_regex = '[a-z0-9]+(?:-[a-z0-9]+)*'
     pg_name = _('global tags listing')
     pg_limit = 60
     serializer_class = TagDetail
