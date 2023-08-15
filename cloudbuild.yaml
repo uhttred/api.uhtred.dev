@@ -1,0 +1,87 @@
+steps:
+  # build
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - '--no-cache'
+      - '-t'
+      - '$_GCR_HOSTNAME/$_PROJECT_ID/$_IMAGE_NAME:$_IMAGE_TAG'
+      - .
+      - '-f'
+      - Dockerfile
+    id: build
+    # push container
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - '$_GCR_HOSTNAME/$_PROJECT_ID/$_IMAGE_NAME:$_IMAGE_TAG'
+    id: push
+  # test
+  # - name: eu.gcr.io/zaki-platform/docker-compose
+  #   secretEnv:
+  #     - 'TEST_SECRETS'
+  #     - 'API_SA'
+  #   entrypoint: bash
+  #   args:
+  #     - '-c'
+  #     - "export SECRETS=$$TEST_SECRETS && \
+  #       export GC_SA=$$API_SA && \
+  #       export DC_API_IMAGE=$_GCR_HOSTNAME/$_PROJECT_ID/$_IMAGE_NAME:$_IMAGE_TAG && \
+  #       docker-compose run api make test"
+  #   id: test
+  # migrations
+  - name: gcr.io/google-appengine/exec-wrapper
+    secretEnv:
+      - 'BASE_SECRETS'
+    entrypoint: bash
+    args:
+      - '-c'
+      - "export SECRETS=$$BASE_SECRETS \
+        /buildstep/execute.sh -i $_GCR_HOSTNAME/$PROJECT_ID/$_IMAGE_NAME:$_IMAGE_TAG \
+        -s $_SQL_CONNECTION_NAME \
+        -e SECRETS \
+        -e GC_SA \
+        -- python manage.py migrate"
+    id: migrations
+  # delpoy
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    args:
+      - run
+      - deploy
+      - $_SERVICE_NAME
+      - '--platform=managed'
+      - '--allow-unauthenticated'
+      - '--image=$_GCR_HOSTNAME/$_PROJECT_ID/$_IMAGE_NAME:$_IMAGE_TAG'
+      - '--region=$_DEPLOY_REGION'
+      - '--service-account=$_SA_EMAIL'
+      # - '--use-http2'
+      - '--update-secrets=SECRETS=$_SECRET_NAME:latest'
+      - '--quiet'
+    id: deploy
+    entrypoint: gcloud
+images:
+  - '$_GCR_HOSTNAME/$_PROJECT_ID/$_IMAGE_NAME:$_IMAGE_TAG'
+options:
+  substitutionOption: ALLOW_LOOSE
+availableSecrets:
+  secretManager:
+    - versionName: projects/$_SECRET_ID/secrets/$_SECRET_NAME/versions/$_SECRET_VERSION
+      env: 'BASE_SECRETS'
+    # - versionName: projects/$_SECRET_ID/secrets/$_TEST_SECRET_NAME/versions/$_SECRET_VERSION
+    #   env: 'TEST_SECRETS'
+    # - versionName: projects/$_SECRET_ID/secrets/$_SA_SECRET_NAME/versions/$_SECRET_VERSION
+    #   env: 'API_SA'
+substitutions:
+  _GCR_HOSTNAME: eu.gcr.io
+  _PROJECT_ID: uhtred
+  _IMAGE_NAME: api.uhtred.dev
+  _IMAGE_TAG: stable
+  _SERVICE_NAME: api-uhtred-dev
+  _DEPLOY_REGION: europe-west1
+  _SECRET_ID: ''
+  _SQL_CONNECTION_NAME: ''
+  _SECRET_VERSION: latest
+  _SECRET_NAME: api-secrets
+  _TEST_SECRET_NAME: test-api-secrets
+  _SA_SECRET_NAME: api-service-account
+  _SA_EMAIL: ''

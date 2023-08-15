@@ -8,9 +8,48 @@
 
 stages:
 - test
+- deploy
 
 sast:
   stage: test
   
 include:
 - template: Security/SAST.gitlab-ci.yml
+
+.submit:
+  script:
+    - echo $GCP_SA_KEY > gsa.json
+    - gcloud auth activate-service-account $GCP_SA_EMAIL --key-file=gsa.json
+    - gcloud config set project $GCP_PROJECT_ID
+    - "gcloud builds submit . \
+      --config=cloudbuild.yaml \ 
+      --substitutions=\
+      _PROJECT_ID=$GCP_PROJECT_ID,\
+      _SERVICE_NAME=$GCP_CLOUD_RUN_SERVICE,\
+      _IMAGE_NAME=$IMAGE_NAME,\
+      _IMAGE_TAG=$IMAGE_TAG,\
+      _SECRET_ID=$GCP_SECRET_ID,\
+      _SECRET_NAME=$GCP_SECRET_NAME,\
+      _SA_SECRET_NAME=$GCP_SA_SECRET_NAME,\
+      _SQL_CONNECTION_NAME=$GCP_SQL_CONNECTION_NAME,\
+      _SA_EMAIL=$GCP_SA_EMAIL,\
+      _DEPLOY_REGION=$GCP_CLOUD_RUN_REGION \
+      --quiet --async"
+
+'submit to staging':
+  stage: deploy
+  image: google/cloud-sdk
+  environment: staging
+  script:
+    - !reference [.submit, script]
+  only:
+    - staging
+
+'submit to production':
+  stage: deploy
+  image: google/cloud-sdk
+  environment: main
+  script:
+    - !reference [.submit, script]
+  only:
+    - main

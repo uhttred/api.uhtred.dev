@@ -14,7 +14,7 @@ from uhtred.core.validators import (
 
 class UserRole(models.TextChoices):
     COLLABORATOR = 'collaborator', _('collaborator')
-    MEMBER = 'member', _('member')
+    MANAGER = 'manager', _('manager')
 
 
 class UserManager(UM):
@@ -44,7 +44,7 @@ class User(AbstractUser, BaseFieldsAbstractModel):
 
     name = models.CharField(_('name'), max_length=40, blank=True,
         validators=[NameValidator(), NoPoitSequenceValidator()], default=str)
-    role = models.CharField(_('role'), max_length=12, choices=Role.choices, default=Role.MEMBER)
+    role = models.CharField(_('role'), max_length=12, choices=Role.choices, default=Role.MANAGER)
     email = models.EmailField(_('email address'), null=True, blank=True,
         validators=[EmailValidator()], default=None)
     username = models.CharField(
@@ -65,21 +65,21 @@ class User(AbstractUser, BaseFieldsAbstractModel):
     objects = UserManager()
 
 
-class MemberManager(UserManager):
+class ManagerManager(UserManager):
 
     def get_queryset(self, *args, **kwargs):
-        return super().get_queryset(*args, **kwargs).filter(role=UserRole.MEMBER)
+        return super().get_queryset(*args, **kwargs).filter(role=UserRole.MANAGER)
 
 
-class Member(User):
+class Manager(User):
 
     class Meta:
         proxy = True
-        verbose_name = _('member')
-        verbose_name_plural = _('members')
+        verbose_name = _('manager')
+        verbose_name_plural = _('managers')
 
     Role = UserRole
-    objects = MemberManager()
+    objects = ManagerManager()
 
     def save(self, *args, **kwargs) -> None:
         if not self.pk:
@@ -101,7 +101,7 @@ class Collaborator(User):
         verbose_name_plural = _('collaborators')
 
     Role = UserRole
-    objects = MemberManager()
+    objects = ManagerManager()
 
     def save(self, *args, **kwargs) -> None:
         if not self.pk:

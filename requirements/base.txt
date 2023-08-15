@@ -3,5 +3,6 @@ djangorestframework==3.14.*
 django-environ==0.10.*
 martor==1.6.*
 django-svg-image-form-field==1.0.*
+django-storages[google]
 django-cors-headers
 Pillow

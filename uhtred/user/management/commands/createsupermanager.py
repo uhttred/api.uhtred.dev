@@ -21,11 +21,11 @@ class Command(BaseCommand):
         
         if not User.objects.is_username_registered(username):
             user: User = User.objects.create(
-                role=User.Role.MEMBER,
+                role=User.Role.MANAGER,
                 username=username,
                 is_superuser=True,
                 is_staff=True)
             user.set_password(password)
             user.save()
-            return self.stdout.write(self.style.SUCCESS(f"Successful created super member {username}"))
+            return self.stdout.write(self.style.SUCCESS(f"Successful created super manager {username}"))
         return self.stdout.write(self.style.ERROR(f"Already registered an user with '{username}' username"))

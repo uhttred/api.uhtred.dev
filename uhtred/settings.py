@@ -157,6 +157,23 @@ MEDIA_ROOT = BASE_DIR / 'uploads'
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+STORAGES = {
+    "default": {
+        "BACKEND": env('DEFAULT_FILE_STORAGE',
+                        default='storages.backends.gcloud.GoogleCloudStorage')
+    },
+    "staticfiles": {
+        "BACKEND": env('STATICFILES_STORAGE',
+                        default='storages.backends.gcloud.GoogleCloudStorage')
+    }
+}
+
+GS_BUCKET_NAME = env('GS_BUCKET_NAME', default='uhtred')
+GS_DEFAULT_ACL = env('GS_DEFAULT_ACL', default=None, cast=str)
+GS_QUERYSTRING_AUTH = env('GS_QUERYSTRING_AUTH', default=False)
+GS_OBJECT_PARAMETERS = {
+    'cache_control': 'max-age=31536000'}
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 

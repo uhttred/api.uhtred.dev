@@ -3,12 +3,14 @@ from typing import Tuple, Dict
 from django.db import models
 from django.core.validators import FileExtensionValidator
 from django.utils.translation import gettext_lazy as _
+from django.utils.timezone import now
 
 from uhtred.core.models.abstract import BaseFieldsAbstractModel
 
 
 def images_upload_to(instance, filename):
-    return f"images/{instance.uid}/{filename}"
+    date = now()
+    return f"images/{date.year}/{date.month}/{filename}"
 
 
 class Image(BaseFieldsAbstractModel):
@@ -41,7 +43,7 @@ class Image(BaseFieldsAbstractModel):
     
     @property
     def url(self):
-        return None if not self.file else f'http://localhost:8000{self.file.url}'
+        return None if not self.file else self.file.url
     
     @property
     def thumbnail_url(self):

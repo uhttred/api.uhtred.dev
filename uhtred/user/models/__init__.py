@@ -1,1 +1,1 @@
-from .user import User, Collaborator, Member
+from .user import User, Collaborator, Manager
