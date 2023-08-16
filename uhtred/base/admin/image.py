@@ -60,4 +60,7 @@ class ImageAdmin(admin.ModelAdmin):
         return obj.admin_image_preview()
     
     def image(self, obj):
-        return obj.admin_thumbnail_preview(80)
+        s = obj.admin_thumbnail_preview(80)
+        if s == '-':
+            return obj.admin_image_preview()
+        return s

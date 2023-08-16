@@ -2,7 +2,7 @@ import os
 import io
 import secrets
 
-from typing import Tuple
+from typing import Tuple, Union
 from PIL import Image
 
 
@@ -71,7 +71,7 @@ def resize(
         rename: bool = False,
         add_thumbnail_sufix: bool = False,
         _format: str = None
-    ) -> ContentFile:
+    ) -> Union[ContentFile,None]:
     """
     Create a New Resized Image (Thumbnail).
     Uses inmemory with BytesIO
@@ -79,6 +79,10 @@ def resize(
     
     name, ext = get_name_and_extension(file.name,
         rename=rename)
+    
+    if ext.lower() == '.svg':
+        return None
+
     thumb: Image.Image = Image.open(file)
     thumb_io = io.BytesIO()
 
@@ -89,7 +93,4 @@ def resize(
     filename = (f'{name}.thumbnail{ext}' if add_thumbnail_sufix
         else f'{name}{ext}')
     
-    print(filename)
-    print(add_thumbnail_sufix)
-
     return ContentFile(thumb_io.getvalue(), name=filename)
