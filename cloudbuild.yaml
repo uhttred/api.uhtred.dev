@@ -30,36 +30,19 @@ steps:
   #       docker-compose run api make test"
   #   id: test
   # migrations
-  # - name: gcr.io/google-appengine/exec-wrapper
-  #   secretEnv:
-  #     - 'BASE_SECRETS'
-  #     # - 'API_SA'
-  #   entrypoint: bash
-  #   args:
-  #     - '-c'
-  #     - "export SECRETS=$$BASE_SECRETS && \
-  #       /buildstep/execute.sh -i $_GCR_HOSTNAME/$PROJECT_ID/$_IMAGE_NAME:$_IMAGE_TAG \
-  #       -s $_SQL_CONNECTION_NAME \
-  #       -e SECRETS \
-  #       -- python manage.py migrate"
-  #   id: migrations
-  - id: "apply migrations"
-    name: "gcr.io/google-appengine/exec-wrapper"
+  - name: gcr.io/google-appengine/exec-wrapper
     secretEnv:
       - 'BASE_SECRETS'
+      # - 'API_SA'
+    entrypoint: bash
     args:
-      [
-        "-i",
-        "$_GCR_HOSTNAME/$PROJECT_ID/$_IMAGE_NAME:$_IMAGE_TAG",
-        "-s",
-        "$_SQL_CONNECTION_NAME",
-        "-e",
-        "SECRETS=$$BASE_SECRETS",
-        "--",
-        "python",
-        "manage.py",
-        "migrate",
-      ]
+      - '-c'
+      - "export SECRETS=$$BASE_SECRETS && \
+        /buildstep/execute.sh -i $_GCR_HOSTNAME/$PROJECT_ID/$_IMAGE_NAME:$_IMAGE_TAG \
+        -s $_SQL_CONNECTION_NAME \
+        -e SECRETS \
+        -- python manage.py migrate"
+    id: migrations
   - name: gcr.io/google-appengine/exec-wrapper
     secretEnv:
       - 'BASE_SECRETS'
