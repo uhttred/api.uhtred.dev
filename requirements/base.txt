@@ -6,3 +6,4 @@ django-svg-image-form-field==1.0.*
 django-storages[google]
 django-cors-headers
 Pillow
+psycopg2
