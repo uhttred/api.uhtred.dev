@@ -54,7 +54,7 @@ steps:
         /buildstep/execute.sh -i $_GCR_HOSTNAME/$PROJECT_ID/$_IMAGE_NAME:$_IMAGE_TAG \
         -e SECRETS \
         -- python manage.py collectstatic --no-input"
-    id: staticfiles
+    id: static-files
   # delpoy
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk
     args:
