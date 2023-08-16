@@ -1,3 +1,4 @@
+import os
 import environ
 import sys
 from pathlib import Path
@@ -7,8 +8,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env()
 
+# service account key
+sa_file_path = BASE_DIR / 'sa-key.json'
+
+if (sa_credentials := os.environ.get('GC_SA')):
+    with open(sa_file_path, 'w') as f:
+        f.write(sa_credentials)
+    os.environ.setdefault('GOOGLE_APPLICATION_CREDENTIALS',
+        str(sa_file_path))
+
 # reading env vars in .env file
 env_file_path = BASE_DIR / '.env'
+
+if (secrets_data := os.environ.get('SECRETS')):
+    with open(env_file_path, 'w') as f:
+        f.write(secrets_data)
 
 if env_file_path.is_file():
     env.read_env(env_file_path.open())
