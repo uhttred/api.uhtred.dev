@@ -1,6 +1,5 @@
 from django import forms
 from django.contrib import admin
-from django.utils.html import mark_safe
 from django.utils.translation import gettext_lazy as _
 from django_svg_image_form_field import SvgAndImageFormField
 
@@ -54,13 +53,11 @@ class ImageAdmin(admin.ModelAdmin):
         'image',
         'file_preview')
     
-    def thumbnail_preview(self, obj):
-        if obj.thumbnail:
-            return mark_safe(f'<img src="{obj.thumbnail_url}" style="max-width:300px;"/>')
-        return '-'
+    def thumbnail_preview(self, obj: Image):
+        return obj.admin_thumbnail_preview()
 
-    def file_preview(self, obj):
-        return mark_safe(f'<img src="{obj.url}" style="max-width:300px;"/>')
+    def file_preview(self, obj: Image):
+        return obj.admin_image_preview()
     
     def image(self, obj):
-        return mark_safe(f'<img src="{obj.url}" style="max-width:80px;"/>')
+        return obj.admin_thumbnail_preview(80)

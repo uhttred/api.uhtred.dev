@@ -1,6 +1,5 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
-from django.utils.html import mark_safe
 
 from uhtred.base.models import Person
 
@@ -47,5 +46,7 @@ class PersonAdmin(admin.ModelAdmin):
         'updated_at')
     
     def image(self, obj):
-        return mark_safe(f'<img src="{obj.avatar.url}" style="max-width:80px;"/>')
+        if obj.avatar:
+            return obj.avatar.admin_image_preview()
+        return '-'
     

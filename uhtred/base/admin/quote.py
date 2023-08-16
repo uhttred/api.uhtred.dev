@@ -1,6 +1,4 @@
-from django import forms
 from django.contrib import admin
-from django.utils.html import mark_safe
 from django.utils.translation import gettext_lazy as _
 
 from uhtred.base.models import Quote
@@ -55,11 +53,11 @@ class QuoteAdmin(admin.ModelAdmin):
         'brand_logo_preview')
     
     def brand_logo_preview(self, obj):
-        if obj.brand_logo_dark:
-            return mark_safe(f'<img src="{obj.brand_logo.url}" style="max-width:300px;"/>')
+        if obj.brand_logo:
+            return obj.brand_logo.admin_image_preview()
         return '-'
     
     def brand_logo_dark_preview(self, obj):
         if obj.brand_logo_dark:
-            return mark_safe(f'<img src="{obj.brand_logo_dark.url}" style="max-width:300px;"/>')
+            return obj.brand_logo_dark.admin_image_preview()
         return '-'

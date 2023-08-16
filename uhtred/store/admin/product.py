@@ -1,6 +1,5 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
-from django.utils.html import mark_safe
 
 from uhtred.store.models import Product
 
@@ -51,5 +50,7 @@ class ProductAdmin(admin.ModelAdmin):
         'updated_at')
     
     def image(self, obj):
-        return mark_safe(f'<img src="{obj.cover.url}" style="max-width:80px;"/>')
+        if obj.cover:
+            return obj.cover.admin_image_preview()
+        return '-'
     

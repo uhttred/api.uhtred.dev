@@ -1,11 +1,12 @@
 import os
 import io
-import base64
 import secrets
 
-from typing import Tuple, Union
+from typing import Tuple
 from PIL import Image
 
+
+from django.utils.timezone import now
 from django.core.files.base import (
     ContentFile,
     File)
@@ -26,6 +27,16 @@ def get_name_and_extension(filename: str, rename=True) -> Tuple[str, str]:
     name = (name.split('/')[-1] if not rename
         else secrets.token_hex(20))
     return name, ext
+
+
+def image_upload_to(instance, filename):
+    name, ext = get_name_and_extension(filename)
+    date = now()
+    return f"images/{date.year}/{date.month}/{name}{ext}"
+
+def image_thumbnail_upload_to(instance, filename):
+    date = now()
+    return f"images/{date.year}/{date.month}/{filename}"
 
 
 def rename(file: File) -> None:
@@ -77,5 +88,8 @@ def resize(
 
     filename = (f'{name}.thumbnail{ext}' if add_thumbnail_sufix
         else f'{name}{ext}')
+    
+    print(filename)
+    print(add_thumbnail_sufix)
 
     return ContentFile(thumb_io.getvalue(), name=filename)

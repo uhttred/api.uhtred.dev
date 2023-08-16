@@ -1,0 +1,16 @@
+# Cloud Build: Collect Static Files
+gcloud builds submit --no-source --config=./executor/staticfiles.yml \
+--substitutions _IMAGE_TAG=dev,\
+_SECRET_ID=530766263258,\
+_SECRET_NAME=dev-api-secrets,\
+_SA_SECRET_NAME=api-service-account
+
+# Cloud Build: Create Super Manager
+gcloud builds submit --no-source --config=./executor/csmanager.yml \
+--substitutions _MANAGER_USERNAME=woza,\
+_MANAGER_PASSWORD=asd,\
+_IMAGE_TAG=dev,\
+_SECRET_ID=530766263258,\
+_SECRET_NAME=dev-api-secrets,\
+_SA_SECRET_NAME=api-service-account,\
+_SQL_CONNECTION_NAME=

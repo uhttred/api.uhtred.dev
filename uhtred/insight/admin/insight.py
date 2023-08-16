@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib import admin
-from django.utils.html import mark_safe
 from django.utils.translation import gettext_lazy as _
 
 from martor.widgets import AdminMartorWidget
@@ -70,5 +69,5 @@ class InsightAdmin(admin.ModelAdmin):
     
     def image(self, obj):
         if obj.cover:
-            return mark_safe(f'<img src="{obj.cover.url}" style="max-width:600px;"/>')
+            return obj.cover.admin_image_preview()
         return '-'

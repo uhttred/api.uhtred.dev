@@ -1,0 +1,35 @@
+steps:
+  # create super manager
+  - name: gcr.io/google-appengine/exec-wrapper
+    secretEnv:
+      - 'BASE_SECRETS'
+    entrypoint: bash
+    args:
+      - '-c'
+      - "export SECRETS=$$BASE_SECRETS && \
+        /buildstep/execute.sh -i $_GCR_HOSTNAME/$_PROJECT_ID/$_IMAGE_NAME:$_IMAGE_TAG \
+        -s $_SQL_CONNECTION_NAME \
+        -e SECRETS \
+        -- python manage.py createsupermanager $_MANAGER_USERNAME $_MANAGER_PASSWORD"
+    id: supermanager
+images:
+  - '$_GCR_HOSTNAME/$_PROJECT_ID/$_IMAGE_NAME:$_IMAGE_TAG'
+options:
+  substitutionOption: ALLOW_LOOSE
+availableSecrets:
+  secretManager:
+    - versionName: projects/$_SECRET_ID/secrets/$_SECRET_NAME/versions/$_SECRET_VERSION
+      env: 'BASE_SECRETS'
+substitutions:
+  _GCR_HOSTNAME: eu.gcr.io
+  _PROJECT_ID: uhtred
+  _IMAGE_NAME: api.uhtred.dev
+  _IMAGE_TAG: stable
+  _SERVICE_NAME: api-uhtred-dev
+  _DEPLOY_REGION: europe-west1
+  _SECRET_ID: ''
+  _SECRET_VERSION: latest
+  _SECRET_NAME: api-secrets
+  _SA_SECRET_NAME: api-service-account
+  _MANAGER_USERNAME: ''
+  _MANAGER_PASSWORD: ''

@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib import admin
-from django.utils.html import mark_safe
 from django.utils.translation import gettext_lazy as _
 
 from martor.widgets import AdminMartorWidget
@@ -76,25 +75,25 @@ class CaseAdmin(admin.ModelAdmin):
     
     def cover_preview(self, obj):
         if obj.cover:
-            return mark_safe(f'<img src="{obj.cover.url}" style="max-width:300px;"/>')
+            return obj.cover.admin_image_preview()
         return '-'
     
     def banner_preview(self, obj):
         if obj.banner:
-            return mark_safe(f'<img src="{obj.banner.url}" style="max-width:300px;"/>')
+            return obj.banner.admin_image_preview()
         return '-'
     
     def banner_dark_preview(self, obj):
         if obj.banner_dark:
-            return mark_safe(f'<img src="{obj.banner_dark.url}" style="max-width:300px;"/>')
+            return obj.banner_dark.admin_image_preview()
         return '-'
     
     def brand_logo_preview(self, obj):
         if obj.brand_logo_dark:
-            return mark_safe(f'<img src="{obj.brand_logo.url}" style="max-width:300px;"/>')
+            return obj.brand_logo.admin_image_preview()
         return '-'
     
     def brand_logo_dark_preview(self, obj):
         if obj.brand_logo_dark:
-            return mark_safe(f'<img src="{obj.brand_logo_dark.url}" style="max-width:300px;"/>')
+            return obj.brand_logo_dark.admin_image_preview()
         return '-'
