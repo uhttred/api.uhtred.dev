@@ -33,7 +33,6 @@ steps:
   - name: gcr.io/google-appengine/exec-wrapper
     secretEnv:
       - 'BASE_SECRETS'
-      # - 'API_SA'
     entrypoint: bash
     args:
       - '-c'
@@ -46,7 +45,6 @@ steps:
   - name: gcr.io/google-appengine/exec-wrapper
     secretEnv:
       - 'BASE_SECRETS'
-      # - 'API_SA'
     entrypoint: bash
     args:
       - '-c'
@@ -81,8 +79,6 @@ availableSecrets:
       env: 'BASE_SECRETS'
     # - versionName: projects/$_SECRET_ID/secrets/$_TEST_SECRET_NAME/versions/$_SECRET_VERSION
     #   env: 'TEST_SECRETS'
-    # - versionName: projects/$_SECRET_ID/secrets/$_SA_SECRET_NAME/versions/$_SECRET_VERSION
-    #   env: 'API_SA'
 substitutions:
   _GCR_HOSTNAME: eu.gcr.io
   _PROJECT_ID: uhtred
