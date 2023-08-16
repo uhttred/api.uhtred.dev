@@ -42,17 +42,6 @@ steps:
         -e SECRETS \
         -- python manage.py migrate"
     id: migrations
-  - name: gcr.io/google-appengine/exec-wrapper
-    secretEnv:
-      - 'BASE_SECRETS'
-    entrypoint: bash
-    args:
-      - '-c'
-      - "export SECRETS=$$BASE_SECRETS && \
-        /buildstep/execute.sh -i $_GCR_HOSTNAME/$PROJECT_ID/$_IMAGE_NAME:$_IMAGE_TAG \
-        -e SECRETS \
-        -- python manage.py collectstatic --no-input"
-    id: static-files
   # delpoy
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk
     args:

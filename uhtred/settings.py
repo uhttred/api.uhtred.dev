@@ -174,7 +174,7 @@ STORAGES = {
 }
 
 GS_BUCKET_NAME = env('GS_BUCKET_NAME', default='uhtred')
-GS_DEFAULT_ACL = env('GS_DEFAULT_ACL', default=None, cast=str)
+GS_DEFAULT_ACL = env('GS_DEFAULT_ACL', default='publicRead', cast=str)
 GS_QUERYSTRING_AUTH = env('GS_QUERYSTRING_AUTH', default=False)
 GS_OBJECT_PARAMETERS = {
     'cache_control': 'max-age=31536000'}
