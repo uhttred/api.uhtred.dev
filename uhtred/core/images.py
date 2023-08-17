@@ -32,11 +32,11 @@ def get_name_and_extension(filename: str, rename=True) -> Tuple[str, str]:
 def image_upload_to(instance, filename):
     name, ext = get_name_and_extension(filename)
     date = now()
-    return f"images/{date.year}/{date.month}/{name}{ext}"
+    return f"images/{date.year}/{date.month}/{date.day}/{name}{ext}"
 
 def image_thumbnail_upload_to(instance, filename):
     date = now()
-    return f"images/{date.year}/{date.month}/{filename}"
+    return f"images/{date.year}/{date.month}/{date.day}/{filename}"
 
 
 def rename(file: File) -> None:
@@ -70,7 +70,8 @@ def resize(
         size: tuple = SIZE_2_1_SMALL,
         rename: bool = False,
         add_thumbnail_sufix: bool = False,
-        _format: str = None
+        _format: Union[str,None] = 'None',
+        check_image_orientation: bool = True
     ) -> Union[ContentFile,None]:
     """
     Create a New Resized Image (Thumbnail).
@@ -87,7 +88,8 @@ def resize(
     thumb_io = io.BytesIO()
 
     thumb.thumbnail(size)
-    thumb = check_image_orientation_and_rotate(thumb)
+    if check_image_orientation:
+        thumb = check_image_orientation_and_rotate(thumb)
     thumb.save(thumb_io, format=_format or ext[1:], optimize=True, quality=85)
 
     filename = (f'{name}.thumbnail{ext}' if add_thumbnail_sufix

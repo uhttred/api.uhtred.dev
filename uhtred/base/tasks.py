@@ -7,9 +7,11 @@ from uhtred.core.images import (
 def task_create_image_thumbnail(image_id: int) -> None:
     """Read function name hahah"""
     image: Image = Image.objects.get(id=image_id)
-    if thumb := resize(
+    thumb = resize(
         file=image.file,
         rename=False,
-        add_thumbnail_sufix=True):
+        check_image_orientation=False,
+        add_thumbnail_sufix=True)
+    if thumb:
         image.thumbnail = thumb
-    image.save()
+        image.save()

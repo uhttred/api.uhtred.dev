@@ -21,11 +21,11 @@ class DynamicFieldsModelSerializer(serializers.ModelSerializer):
                 if key in existing:
                     self.fields.pop(key)
     
-    created_at = serializers.DateTimeField(
-        format="%d %B %Y at %H:%M",
-        required=False,
-        read_only=True)
-    updated_at = serializers.DateTimeField(
-        format="%d %B %Y at %H:%M",
-        required=False,
-        read_only=True)
+    # created_at = serializers.DateTimeField(
+    #     format="%d %B %Y at %H:%M",
+    #     required=False,
+    #     read_only=True)
+    # updated_at = serializers.DateTimeField(
+    #     format="%d %B %Y at %H:%M",
+    #     required=False,
+    #     read_only=True)
