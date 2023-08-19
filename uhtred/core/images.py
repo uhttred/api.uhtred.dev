@@ -3,22 +3,15 @@ import io
 import secrets
 
 from typing import Tuple, Union
+
 from PIL import Image
 
-
+from django.db.models import ImageField
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.utils.timezone import now
 from django.core.files.base import (
     ContentFile,
     File)
-
-
-SIZE_1_THIN: tuple = 30, 30
-SIZE_2_SMALL: tuple = 128, 128
-SIZE_2_1_SMALL: tuple = 280, 280
-SIZE_3_SMALL: tuple = 540, 540
-SIZE_4_MEDIUM: tuple = 768, 768
-SIZE_5_LARGE: tuple = 1080, 1080
-SIZE_6_LARGE: tuple = 1200, 1200
 
 
 def get_name_and_extension(filename: str, rename=True) -> Tuple[str, str]:
@@ -34,17 +27,10 @@ def image_upload_to(instance, filename):
     date = now()
     return f"images/{date.year}/{date.month}/{date.day}/{name}{ext}"
 
+
 def image_thumbnail_upload_to(instance, filename):
     date = now()
     return f"images/{date.year}/{date.month}/{date.day}/{filename}"
-
-
-def rename(file: File) -> None:
-    """Rename a file from ImageField by creating new one and delete the old one"""
-    oldname = file.name
-    name, ext = get_name_and_extension(file.name)
-    file.save(f'{name}{ext}', file)
-    file.storage.delete(oldname)
 
 
 def check_image_orientation_and_rotate(image: Image) -> Image:
@@ -67,10 +53,10 @@ def check_image_orientation_and_rotate(image: Image) -> Image:
 
 def resize(
         file: File,
-        size: tuple = SIZE_2_1_SMALL,
+        size: tuple = (280, 280),
         rename: bool = False,
         add_thumbnail_sufix: bool = False,
-        _format: Union[str,None] = 'None',
+        _format: Union[str,None] = None,
         check_image_orientation: bool = True
     ) -> Union[ContentFile,None]:
     """

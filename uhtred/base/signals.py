@@ -8,4 +8,4 @@ from uhtred.base.tasks import task_create_image_thumbnail
 def on_image_created(instance: Image, created, **kwargs) -> None:
     if created:
         task_create_image_thumbnail(
-            image_id=instance.id)
+            image=instance)
