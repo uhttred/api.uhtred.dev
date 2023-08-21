@@ -16,6 +16,15 @@ class CaseViewSet(ViewSet, Paginator):
     lookup_value_regex = '[a-z0-9]+(?:-[a-z0-9]+)*'
     pg_name = _('cases listing')
     serializer_class = CaseDetail
+
+    pg_order_by: str = '-year'
+    pg_order_choices: tuple = (
+        '-created_at',
+        'created_at',
+        '-updated_at',
+        'updated_at',
+        'year',
+        '-year')
     # pg_query_filter_choices = (
     #     'title__icontains',)
 

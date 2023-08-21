@@ -5,6 +5,7 @@ from django.db.models.functions import Lower
 from django.db.models.constraints import UniqueConstraint
 from django.utils.translation import gettext_lazy as _
 from django.utils.text import slugify
+from django.utils.timezone import now
 
 from martor.models import MartorField
 
@@ -15,7 +16,8 @@ class InsightManager(models.Manager):
     
     def default_list(self, *args: Any, **kwargs: Any):
         return super().filter(
-            is_active=True).filter(*args, **kwargs)
+            is_active=True,
+            published_at__isnull=False).filter(*args, **kwargs)
     
     def search(self, lookup: str):
         return self.default_list(
@@ -94,10 +96,22 @@ class Insight(BaseFieldsAbstractModel):
         verbose_name=_('is active'),
         default=False)
     
+    is_completed = models.BooleanField(
+        verbose_name=_('is completed'),
+        default=False)
+    
     published_at = models.DateTimeField(
         verbose_name=_('published at'),
         null=True,
         default=None)
+    
+    created_by = models.ForeignKey(
+        'user.User',
+        verbose_name=_('created by'),
+        null=True,
+        default=None,
+        on_delete=models.SET_NULL,
+        related_name='insights')
     
     objects = InsightManager()
 
@@ -108,6 +122,13 @@ class Insight(BaseFieldsAbstractModel):
         self.slug = slugify(
             self.title,
             allow_unicode=False)
+        
+    def publish(self) -> bool:
+        if self.is_completed and not self.published_at:
+            self.published_at = now()
+            self.save()
+            return True
+        return False
     
     def save(self, *args, **kwargs) -> None:
         """"""

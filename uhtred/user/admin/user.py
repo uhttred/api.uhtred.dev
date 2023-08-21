@@ -31,17 +31,17 @@ class UserAdmin(UA):
     
     collaborator_fieldsets = (
         (_('Identity'), {
-            'fields': ('role', 'id', 'uid', 'username', 'password')}),
+            'fields': ('role', 'id', 'uid', 'username', 'person', 'password')}),
         (_('Contact'), {
             'fields': ('name', 'email')}),
         (_('Permissions'), {
             'fields': ('groups', 'user_permissions', 
-                'is_active', 'is_superuser', 'is_staff')})
+                'is_active', 'is_staff', 'is_superuser')})
     )
     
-    member_fieldsets = (
+    manager_fieldsets = (
         (_('Identity'), {
-            'fields': ('role', 'id', 'uid', 'username')}),
+            'fields': ('role', 'id', 'uid', 'username', 'person')}),
         (_('Contact'), {
             'fields': ('name', 'email')}),
         (_('Permissions'), {
@@ -55,27 +55,39 @@ class UserAdmin(UA):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('role', 'name', 'username',
-                'password1', 'password2', ),
+            'fields': (
+                'role',
+                'name',
+                'username',
+                'person',
+                'password1',
+                'password2'),
         }),
+        (_('Status'), {
+            'classes': ('wide',),
+            'fields': (
+                'is_staff',
+                'is_superuser',
+                'is_active'),
+        })
     )
     
     def get_fieldsets(self, request, obj):
         if obj:
-            if obj.role == User.Role.MEMBER:
-                return self.member_fieldsets
+            if obj.role == User.Role.MANAGER:
+                return self.manager_fieldsets
             return self.collaborator_fieldsets
         return self.add_fieldsets
 
-    def get_readonly_fields(self, request, obj=None):
-        if obj: # editing an existing object
-            if obj.role == User.Role.MEMBER and request.user.is_superuser:
-                # editing manager by superuser
-                return self.readonly_fields + ('role',)
-            # editing customer
-            return self.readonly_fields + ('is_staff', 'is_superuser',
-                'user_permissions', 'groups', 'password', 'role')
-        return self.readonly_fields
+    # def get_readonly_fields(self, request, obj=None):
+    #     if obj: # editing an existing object
+    #         if obj.role == User.Role.MANAGER and request.user.is_superuser:
+    #             # editing manager by superuser
+    #             return self.readonly_fields + ('role',)
+    #         # editing customer
+    #         return self.readonly_fields + ('is_staff', 'is_superuser',
+    #             'user_permissions', 'groups', 'password', 'role')
+    #     return self.readonly_fields
         
     def has_change_permission(self, request, obj = None, **kwargs):
         if obj:

@@ -7,7 +7,6 @@ from django.utils.text import slugify
 from martor.models import MartorField
 
 from uhtred.core.models.abstract import BaseFieldsAbstractModel
-from uhtred.core.text import get_random_string_code
 
 
 def case_images_upload_to(instance, filename):
@@ -114,6 +113,10 @@ class Case(BaseFieldsAbstractModel):
         blank=True,
         default=None)
     
+    year = models.PositiveIntegerField(
+        _('year'),
+        default=0)
+    
     data = models.JSONField(
         verbose_name=_('additional data'),
         blank=True,
@@ -127,7 +130,7 @@ class Case(BaseFieldsAbstractModel):
 
     def __slugify(self):
         self.slug = slugify(
-            f'{self.title} {get_random_string_code(4)}',
+            self.title,
             allow_unicode=False)
     
     def save(self, *args, **kwargs) -> None:

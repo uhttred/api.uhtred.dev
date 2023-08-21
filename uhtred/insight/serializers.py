@@ -17,7 +17,3 @@ class InsightDetail(DynamicFieldsModelSerializer):
     cover = ImageDetail(read_only=True)
     author = PersonDetail(read_only=True)
     tags = TagDetail(read_only=True, many=True)
-    published_at = serializers.DateTimeField(
-        format="%d %B %Y at %H:%M",
-        required=False,
-        read_only=True)

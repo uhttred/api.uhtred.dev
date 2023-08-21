@@ -17,12 +17,14 @@ class CaseAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'title',
+        'is_active',
         'created_at')
     
     date_hierarchy = 'created_at'
     ordering = ('title', 'created_at' )
     search_fields = ('title', 'pt_title', 'id' )
-    # list_filter = ()
+    list_filter = (
+        'is_active',)
     
     fieldsets = (
         (_('Identity'), {

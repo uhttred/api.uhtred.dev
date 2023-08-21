@@ -57,6 +57,13 @@ class User(AbstractUser, BaseFieldsAbstractModel):
             'unique': _('A user with that username already exists'),
         })
     
+    person = models.OneToOneField(
+        'base.Person',
+        null=True,
+        default=None,
+        on_delete=models.SET_NULL,
+        related_name='user')
+    
     first_name = None
     last_name =  None
     date_joined = None
