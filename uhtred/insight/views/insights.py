@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404
 
 from rest_framework.request import Request
 from rest_framework.response import Response
+from rest_framework.decorators import action
 
 from uhtred.core.views import ViewSet
 from uhtred.core.paginator import Paginator
@@ -35,6 +36,15 @@ class InsightViewSet(ViewSet, Paginator):
     def retrieve(self, request: Request, slug: str) -> Response:
         """"""
         obj: Insight = self.get_object(slug)
+        return Response(self.serializer_class(obj).data)
+    
+    @action(
+        detail=True,
+        methods=['PATCH'],
+        url_path='visualisations')
+    def up_visualisations(self, request: Request, slug: str) -> Response:
+        obj: Insight = self.get_object(slug)
+        obj.up_visualisations()
         return Response(self.serializer_class(obj).data)
     
     def get_object(self, slug: str) -> Insight:

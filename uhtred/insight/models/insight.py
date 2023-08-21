@@ -122,6 +122,10 @@ class Insight(BaseFieldsAbstractModel):
         self.slug = slugify(
             self.title,
             allow_unicode=False)
+    
+    def up_visualisations(self):
+        self.visualisations = self.visualisations + 1
+        self.save()
         
     def publish(self) -> bool:
         if self.is_completed and not self.published_at:
