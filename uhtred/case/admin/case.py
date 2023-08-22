@@ -34,6 +34,7 @@ class CaseAdmin(admin.ModelAdmin):
                 'slug',)}),
         (_('Basic Details'), {
             'fields': (
+                'year',
                 'title',
                 'description',
                 'pt_title',
