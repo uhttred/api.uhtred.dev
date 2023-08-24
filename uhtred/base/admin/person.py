@@ -1,11 +1,13 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
+from dynamic_raw_id.admin import DynamicRawIDMixin
+
 from uhtred.base.models import Person
 
 
 @admin.register(Person)
-class PersonAdmin(admin.ModelAdmin):
+class PersonAdmin(admin.ModelAdmin, DynamicRawIDMixin):
 
     list_display_links = ('id', 'image', 'name', )
     list_display = (
@@ -19,6 +21,8 @@ class PersonAdmin(admin.ModelAdmin):
     date_hierarchy = 'created_at'
     ordering = ('name', 'created_at' )
     search_fields = ('name', 'job_title')
+    raw_id_fields = (
+        'avatar',)
 
     fieldsets = (
         (_('Identity'), {

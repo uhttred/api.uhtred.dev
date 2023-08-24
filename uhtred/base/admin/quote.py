@@ -3,10 +3,12 @@ from django.utils.translation import gettext_lazy as _
 
 from uhtred.base.models import Quote
 
+from dynamic_raw_id.admin import DynamicRawIDMixin
+
 
 
 @admin.register(Quote)
-class QuoteAdmin(admin.ModelAdmin):
+class QuoteAdmin(admin.ModelAdmin, DynamicRawIDMixin):
 
     list_display_links = ('id', 'author_name')
     list_display = (
@@ -19,6 +21,9 @@ class QuoteAdmin(admin.ModelAdmin):
     date_hierarchy = 'created_at'
     ordering = ('author__name', 'created_at' )
     search_fields = ('author__name',)
+    raw_id_fields = (
+        'brand_logo',
+        'brand_logo_dark')
 
     fieldsets = (
         (_('Identity'), {

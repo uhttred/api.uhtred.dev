@@ -1,12 +1,10 @@
-from typing import Any, Optional
 from django.db import models
 from django.contrib import admin, messages
-from django.db.models.fields import Field
-from django.forms.fields import TypedChoiceField
 from django.http.request import HttpRequest
-from django.http.response import HttpResponse
 from django.utils.translation import gettext_lazy as _
 from django.http import HttpResponseRedirect
+
+from dynamic_raw_id.admin import DynamicRawIDMixin
 
 from martor.widgets import AdminMartorWidget
 
@@ -15,7 +13,7 @@ from uhtred.insight.models import Insight
 
 
 @admin.register(Insight)
-class InsightAdmin(admin.ModelAdmin):
+class InsightAdmin(admin.ModelAdmin, DynamicRawIDMixin):
     
     formfield_overrides = {
         models.TextField: {'widget': AdminMartorWidget}}
@@ -32,6 +30,10 @@ class InsightAdmin(admin.ModelAdmin):
     date_hierarchy = 'created_at'
     ordering = ('title', 'created_at' )
     search_fields = ('title', 'pt_title', 'id' )
+    raw_id_fields = (
+        'cover',)
+    
+    filter_horizontal = ('tags',)
     list_filter = (
         'published_at',
         'is_active',

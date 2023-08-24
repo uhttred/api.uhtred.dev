@@ -11,11 +11,22 @@ from uhtred.core.images import (
     image_upload_to)
 
 
+class ImageIts(models.TextChoices):
+    CASE_COVER = 'case_cover', _('case cover')
+    CASE_BANNER = 'case_banner', _('case banner')
+    BRAND_LOGO = 'brand_logo', _('brand logo')
+    AVATAR = 'avatar', _('user avatar')
+    INSIGHT_CONTENT = 'insight_content', _('insight content')
+    INSIGHT_COVER = 'insight_cover', _('insight cover')
+
+
 class Image(BaseFieldsAbstractModel):
     
     class Meta:
         verbose_name = _('image')
         verbose_name_plural = _('images')
+    
+    Its = ImageIts
     
     name = models.CharField(
         verbose_name=_('name'),
@@ -35,6 +46,14 @@ class Image(BaseFieldsAbstractModel):
         null=True,
         default=None,
         editable=False)
+    
+    its = models.CharField(
+        _('it\'s'),
+        max_length=16,
+        choices=Its.choices,
+        null=True,
+        blank=True,
+        default=None)
     
     def __str__(self) -> str:
         return self.name or f'image ({self.id})'

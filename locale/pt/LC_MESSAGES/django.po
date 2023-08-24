@@ -3,173 +3,230 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-14 13:56+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2023-08-24 18:15+0000\n"
+"PO-Revision-Date: 2023-08-24 19:16+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-#: uhtred/base/admin/image.py:34 uhtred/base/admin/person.py:24
-#: uhtred/base/admin/tag.py:22 uhtred/case/admin/case.py:29
-#: uhtred/insight/admin/insight.py:31 uhtred/store/admin/product.py:23
+"X-Generator: Poedit 3.2.2\n"
+
+#: uhtred/base/admin/image.py:34 uhtred/base/admin/person.py:28
+#: uhtred/base/admin/quote.py:29 uhtred/base/admin/tag.py:22
+#: uhtred/case/admin/case.py:39 uhtred/insight/admin/insight.py:43
+#: uhtred/newsletter/admin/email_list.py:27 uhtred/store/admin/product.py:22
 #: uhtred/user/admin/user.py:33 uhtred/user/admin/user.py:43
 msgid "Identity"
-msgstr ""
+msgstr "Identidade"
 
-#: uhtred/base/admin/image.py:39
+#: uhtred/base/admin/image.py:40
 msgid "Files"
-msgstr ""
+msgstr "Arquivos"
 
-#: uhtred/base/admin/image.py:44 uhtred/base/admin/person.py:36
-#: uhtred/base/admin/tag.py:32 uhtred/case/admin/case.py:61
-#: uhtred/insight/admin/insight.py:53 uhtred/store/admin/product.py:38
+#: uhtred/base/admin/image.py:45 uhtred/base/admin/person.py:41
+#: uhtred/base/admin/quote.py:44 uhtred/base/admin/tag.py:32
+#: uhtred/case/admin/case.py:72 uhtred/insight/admin/insight.py:66
+#: uhtred/newsletter/admin/email_list.py:36 uhtred/store/admin/product.py:37
 msgid "State and Date"
-msgstr ""
+msgstr "Estado e Datas"
 
-#: uhtred/base/admin/person.py:29 uhtred/base/admin/tag.py:27
-#: uhtred/store/admin/product.py:29 uhtred/store/admin/product.py:35
+#: uhtred/base/admin/person.py:33 uhtred/base/admin/quote.py:34
+#: uhtred/base/admin/tag.py:27 uhtred/store/admin/product.py:28
+#: uhtred/store/admin/product.py:34
 msgid "Details"
-msgstr ""
+msgstr "Detalhes"
 
-#: uhtred/base/models/image.py:17
-msgid "image"
-msgstr ""
+#: uhtred/base/admin/quote.py:38
+msgid "Brand"
+msgstr "Marca"
+
+#: uhtred/base/models/image.py:15
+msgid "case cover"
+msgstr "capa do caso"
+
+#: uhtred/base/models/image.py:16
+msgid "case banner"
+msgstr "banner do caso"
+
+#: uhtred/base/models/image.py:17 uhtred/base/models/quote.py:37
+#: uhtred/case/models/case.py:101
+msgid "brand logo"
+msgstr "logo da marca"
 
 #: uhtred/base/models/image.py:18
+msgid "user avatar"
+msgstr "avatar de utilizador"
+
+#: uhtred/base/models/image.py:19
+msgid "insight content"
+msgstr "conteúdo do insight"
+
+#: uhtred/base/models/image.py:20
+msgid "insight cover"
+msgstr "capa do insight"
+
+#: uhtred/base/models/image.py:26
+msgid "image"
+msgstr "imagem"
+
+#: uhtred/base/models/image.py:27
 msgid "images"
-msgstr ""
+msgstr "imagens"
 
-#: uhtred/base/models/image.py:21 uhtred/base/models/person.py:14
-#: uhtred/base/models/tag.py:25 uhtred/store/models/product.py:46
-#: uhtred/user/models/user.py:45
+#: uhtred/base/models/image.py:32 uhtred/base/models/person.py:14
+#: uhtred/base/models/tag.py:25 uhtred/newsletter/models/email_list.py:24
+#: uhtred/store/models/product.py:46 uhtred/user/models/user.py:45
 msgid "name"
-msgstr ""
-
-#: uhtred/base/models/image.py:22
-msgid "describe what image is for"
-msgstr ""
+msgstr "nome"
 
 #: uhtred/base/models/image.py:33
+msgid "describe what image is for"
+msgstr "descreva a utilidade da imagem"
+
+#: uhtred/base/models/image.py:44
 msgid "image thumbnail"
-msgstr ""
+msgstr "imagem thumbnail"
+
+#: uhtred/base/models/image.py:51
+msgid "it's"
+msgstr "isto é"
 
 #: uhtred/base/models/person.py:10 uhtred/base/models/person.py:11
 msgid "person"
-msgstr ""
+msgstr "pessoa"
 
 #: uhtred/base/models/person.py:18
 msgid "headline"
-msgstr ""
+msgstr "headline"
 
 #: uhtred/base/models/person.py:22
 msgid "job title"
-msgstr ""
+msgstr "cargo"
+
+#: uhtred/base/models/person.py:26
+msgid "company name"
+msgstr "nome da empresa"
+
+#: uhtred/base/models/quote.py:19
+msgid "quote"
+msgstr "sitação"
+
+#: uhtred/base/models/quote.py:20
+msgid "quotes"
+msgstr "citações"
+
+#: uhtred/base/models/quote.py:28
+msgid "text"
+msgstr "texto"
+
+#: uhtred/base/models/quote.py:31
+msgid "text (PT)"
+msgstr "texto (PT)"
+
+#: uhtred/base/models/quote.py:46 uhtred/case/models/case.py:109
+msgid "brand logo dark"
+msgstr "logo marca escuro"
 
 #: uhtred/base/models/tag.py:13
 msgid "tag"
-msgstr ""
+msgstr "tópico"
 
 #: uhtred/base/models/tag.py:14
 msgid "tags"
-msgstr ""
+msgstr "tópicos"
 
 #: uhtred/base/models/tag.py:35
 msgid "name (PT)"
-msgstr ""
+msgstr "nome (PT)"
 
-#: uhtred/base/models/tag.py:41 uhtred/case/models/case.py:57
-#: uhtred/insight/models/insight.py:64
+#: uhtred/base/models/tag.py:41 uhtred/case/models/case.py:56
+#: uhtred/insight/models/insight.py:67
 msgid "description"
 msgstr ""
 
-#: uhtred/base/views/tags.py:17
+#: uhtred/base/views/tags.py:18
 msgid "global tags listing"
 msgstr ""
 
-#: uhtred/case/admin/case.py:34
+#: uhtred/case/admin/case.py:44
 msgid "Basic Details"
 msgstr ""
 
-#: uhtred/case/admin/case.py:40
+#: uhtred/case/admin/case.py:51
 msgid "Images"
 msgstr ""
 
-#: uhtred/case/admin/case.py:52
+#: uhtred/case/admin/case.py:63
 msgid "English Content"
 msgstr ""
 
-#: uhtred/case/admin/case.py:55
+#: uhtred/case/admin/case.py:66
 msgid "Portuguese Content"
 msgstr ""
 
-#: uhtred/case/admin/case.py:58
+#: uhtred/case/admin/case.py:69
 msgid "Additional Data"
 msgstr ""
 
-#: uhtred/case/models/case.py:33
+#: uhtred/case/models/case.py:32
 msgid "case"
 msgstr ""
 
-#: uhtred/case/models/case.py:34
+#: uhtred/case/models/case.py:33
 msgid "cases"
 msgstr ""
 
-#: uhtred/case/models/case.py:50 uhtred/insight/models/insight.py:60
+#: uhtred/case/models/case.py:49 uhtred/insight/models/insight.py:63
 msgid "title"
 msgstr ""
 
-#: uhtred/case/models/case.py:53
+#: uhtred/case/models/case.py:52
 msgid "pt title"
 msgstr ""
 
-#: uhtred/case/models/case.py:62
+#: uhtred/case/models/case.py:61
 msgid "pt description"
 msgstr ""
 
-#: uhtred/case/models/case.py:68 uhtred/case/models/case.py:72
-#: uhtred/insight/models/insight.py:78
+#: uhtred/case/models/case.py:67 uhtred/case/models/case.py:71
+#: uhtred/insight/models/insight.py:81
 msgid "content"
 msgstr ""
 
-#: uhtred/case/models/case.py:78 uhtred/insight/models/insight.py:54
+#: uhtred/case/models/case.py:77 uhtred/insight/models/insight.py:56
 #: uhtred/store/models/product.py:40
 msgid "cover"
 msgstr ""
 
-#: uhtred/case/models/case.py:85
+#: uhtred/case/models/case.py:84
 msgid "banner"
 msgstr ""
 
-#: uhtred/case/models/case.py:93
+#: uhtred/case/models/case.py:92
 msgid "banner dark"
 msgstr ""
 
-#: uhtred/case/models/case.py:102
-msgid "brand logo"
+#: uhtred/case/models/case.py:117
+msgid "year"
 msgstr ""
 
-#: uhtred/case/models/case.py:110
-msgid "brand logo dark"
-msgstr ""
-
-#: uhtred/case/models/case.py:118
+#: uhtred/case/models/case.py:121
 msgid "additional data"
 msgstr ""
 
-#: uhtred/case/models/case.py:123 uhtred/insight/models/insight.py:94
-#: uhtred/store/models/product.py:64
+#: uhtred/case/models/case.py:126 uhtred/insight/models/insight.py:98
+#: uhtred/newsletter/models/email_list.py:39 uhtred/store/models/product.py:64
 msgid "is active"
 msgstr ""
 
-#: uhtred/case/views/cases.py:17 uhtred/insight/views/insights.py:17
+#: uhtred/case/views/cases.py:17 uhtred/insight/views/insights.py:18
 msgid "cases listing"
 msgstr ""
 
@@ -231,44 +288,101 @@ msgid ""
 "letter, one lower case and one number"
 msgstr ""
 
-#: uhtred/insight/admin/insight.py:39
+#: uhtred/insight/admin/insight.py:52
 msgid "English Details"
 msgstr ""
 
-#: uhtred/insight/admin/insight.py:44
+#: uhtred/insight/admin/insight.py:57
 msgid "Portuguese Details"
 msgstr ""
 
-#: uhtred/insight/admin/insight.py:49
+#: uhtred/insight/admin/insight.py:62
 msgid "Additional"
 msgstr ""
 
-#: uhtred/insight/models/insight.py:30
+#: uhtred/insight/admin/insight.py:117
+msgid "Article published"
+msgstr ""
+
+#: uhtred/insight/admin/insight.py:120
+msgid "Unpublished article. Incomplete or already published article."
+msgstr ""
+
+#: uhtred/insight/models/insight.py:32
 msgid "insight"
 msgstr ""
 
-#: uhtred/insight/models/insight.py:31
+#: uhtred/insight/models/insight.py:33
 msgid "insights"
 msgstr ""
 
-#: uhtred/insight/models/insight.py:67
+#: uhtred/insight/models/insight.py:70
 msgid "title (PT)"
 msgstr ""
 
-#: uhtred/insight/models/insight.py:73
+#: uhtred/insight/models/insight.py:76
 msgid "description (PT)"
 msgstr "descrição (PT)"
 
-#: uhtred/insight/models/insight.py:81
+#: uhtred/insight/models/insight.py:84
 msgid "content (PT)"
-msgstr "Conteúdo (PT)"
+msgstr "conteúdo (PT)"
 
-#: uhtred/insight/models/insight.py:90
+#: uhtred/insight/models/insight.py:94
 msgid "visualisations"
 msgstr ""
 
-#: uhtred/insight/models/insight.py:98
+#: uhtred/insight/models/insight.py:102
+msgid "is completed"
+msgstr ""
+
+#: uhtred/insight/models/insight.py:106
 msgid "published at"
+msgstr ""
+
+#: uhtred/insight/models/insight.py:112
+msgid "created by"
+msgstr ""
+
+#: uhtred/insight/templates/insight/admin/change_insight_form.html:6
+msgid "Save"
+msgstr ""
+
+#: uhtred/insight/templates/insight/admin/change_insight_form.html:7
+msgid "Save and continue editing"
+msgstr ""
+
+#: uhtred/insight/templates/insight/admin/change_insight_form.html:9
+msgid "Publish"
+msgstr ""
+
+#: uhtred/newsletter/admin/email_list.py:32
+msgid "Mode Detail"
+msgstr ""
+
+#: uhtred/newsletter/models/email_list.py:14
+msgid "email list"
+msgstr ""
+
+#: uhtred/newsletter/models/email_list.py:15
+msgid "emails list"
+msgstr ""
+
+#: uhtred/newsletter/models/email_list.py:32
+msgid "email"
+msgstr ""
+
+#: uhtred/newsletter/models/email_list.py:35
+msgid "verifeid"
+msgstr ""
+
+#: uhtred/newsletter/views/emails.py:27
+#, python-format
+msgid "E-mail %s registered successfully!"
+msgstr "E-mail %s registrado com sucesso!"
+
+#: uhtred/newsletter/views/emails.py:29
+msgid "Some error occurred, try later"
 msgstr ""
 
 #: uhtred/store/models/product.py:22
@@ -303,12 +417,16 @@ msgstr ""
 msgid "Permissions"
 msgstr ""
 
-#: uhtred/user/models/user.py:16 uhtred/user/models/user.py:100
+#: uhtred/user/admin/user.py:66
+msgid "Status"
+msgstr ""
+
+#: uhtred/user/models/user.py:16 uhtred/user/models/user.py:107
 msgid "collaborator"
 msgstr ""
 
-#: uhtred/user/models/user.py:17 uhtred/user/models/user.py:78
-msgid "member"
+#: uhtred/user/models/user.py:17 uhtred/user/models/user.py:85
+msgid "manager"
 msgstr ""
 
 #: uhtred/user/models/user.py:35
@@ -335,10 +453,10 @@ msgstr ""
 msgid "A user with that username already exists"
 msgstr ""
 
-#: uhtred/user/models/user.py:79
-msgid "members"
+#: uhtred/user/models/user.py:86
+msgid "managers"
 msgstr ""
 
-#: uhtred/user/models/user.py:101
+#: uhtred/user/models/user.py:108
 msgid "collaborators"
 msgstr "colaboradores"

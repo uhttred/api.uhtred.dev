@@ -56,7 +56,8 @@ class Insight(BaseFieldsAbstractModel):
         verbose_name=_('cover'),
         related_name='insight_cover',
         on_delete=models.SET_NULL,
-        null=True)
+        null=True,
+        blank=True)
     
     title = models.CharField(
         verbose_name=_('title'),
@@ -86,7 +87,8 @@ class Insight(BaseFieldsAbstractModel):
     
     tags = models.ManyToManyField(
         'base.Tag',
-        related_name='insights')
+        related_name='insights',
+        blank=True)
     
     visualisations = models.PositiveIntegerField(
         verbose_name=_('visualisations'),

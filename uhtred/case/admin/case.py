@@ -2,13 +2,15 @@ from django.db import models
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
+from dynamic_raw_id.admin import DynamicRawIDMixin
+
 from martor.widgets import AdminMartorWidget
 
 from uhtred.case.models import Case
 
 
 @admin.register(Case)
-class CaseAdmin(admin.ModelAdmin):
+class CaseAdmin(admin.ModelAdmin, DynamicRawIDMixin):
     
     formfield_overrides = {
         models.TextField: {'widget': AdminMartorWidget}}
@@ -23,6 +25,13 @@ class CaseAdmin(admin.ModelAdmin):
     date_hierarchy = 'created_at'
     ordering = ('title', 'created_at' )
     search_fields = ('title', 'pt_title', 'id' )
+    raw_id_fields = (
+        'cover',
+        'banner',
+        'banner_dark',
+        'brand_logo',
+        'brand_logo_dark')
+    
     list_filter = (
         'is_active',)
     

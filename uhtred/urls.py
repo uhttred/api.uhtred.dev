@@ -14,6 +14,7 @@ admin.site.index_title = 'Uhtred'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('martor/', include('martor.urls')),
+    path('newsletter/', include('uhtred.newsletter.urls')),
     path('', include('uhtred.insight.urls')),
     path('', include('uhtred.case.urls')),
     path('', include('uhtred.store.urls')),

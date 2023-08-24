@@ -28,13 +28,15 @@ class ImageAdmin(admin.ModelAdmin):
     date_hierarchy = 'created_at'
     ordering = ('name', 'created_at' )
     search_fields = ('name',)
+    list_filter = ('its', )
 
     fieldsets = (
         (_('Identity'), {
             'fields': (
                 'id',
                 'uid',
-                'name')}),
+                'name',
+                'its')}),
         (_('Files'), {
             'fields': (
                 'file',

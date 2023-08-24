@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'uhtred.case',
     'uhtred.store',
     'uhtred.insight',
+    'uhtred.newsletter',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
