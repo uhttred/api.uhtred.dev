@@ -14,10 +14,13 @@ class EmailList(BaseFieldsAbstractModel):
         verbose_name = _('email list')
         verbose_name_plural = _('emails list')
         constraints: tuple = (
+            # UniqueConstraint(
+            #     fields=['email', 'verified'],
+            #     condition=models.Q(verified=True),
+            #     name='unique_verified_email'),
             UniqueConstraint(
-                fields=['email', 'verified'],
-                condition=models.Q(verified=True),
-                name='unique_verified_email'),
+                Lower('email'),
+                name='unique_email'),
             )
     
     name = models.CharField(
@@ -29,6 +32,7 @@ class EmailList(BaseFieldsAbstractModel):
         default=str)
     
     email = models.EmailField(
+        unique=True,
         verbose_name=_('email'))
     
     verified = models.BooleanField(
