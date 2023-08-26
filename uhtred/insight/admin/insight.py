@@ -3,8 +3,10 @@ from django.contrib import admin, messages
 from django.http.request import HttpRequest
 from django.utils.translation import gettext_lazy as _
 from django.http import HttpResponseRedirect
+from django.utils.html import mark_safe
 
 from dynamic_raw_id.admin import DynamicRawIDMixin
+
 
 from martor.widgets import AdminMartorWidget
 
@@ -40,6 +42,9 @@ class InsightAdmin(admin.ModelAdmin, DynamicRawIDMixin):
         'is_completed')
     
     fieldsets = (
+        (_('Preview'), {
+            'fields': (
+                'preview_insight',)}),
         (_('Identity'), {
             'fields': (
                 'id',
@@ -77,6 +82,7 @@ class InsightAdmin(admin.ModelAdmin, DynamicRawIDMixin):
         'uid',
         'slug',
         'visualisations',
+        'preview_insight',
         'published_at',
         'image',
         'created_at',
@@ -94,9 +100,16 @@ class InsightAdmin(admin.ModelAdmin, DynamicRawIDMixin):
             kwargs['queryset'] = User.objects.filter(id=request.user.id)
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
     
-    def image(self, obj):
+    def image(self, obj: Insight):
         if obj.cover:
             return obj.cover.admin_image_preview()
+        return '-'
+    
+    def preview_insight(self, obj):
+        if obj.id:
+            return mark_safe(
+                f'<a target="blank" href="https://uhtred.dev/insight-preview/{obj.id}">'
+                    'Previsualizar Insight</a>')
         return '-'
     
     def has_delete_permission(self, request: HttpRequest, obj = None) -> bool:
