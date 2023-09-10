@@ -45,6 +45,12 @@ class Insight(BaseFieldsAbstractModel):
         max_length=250,
         allow_unicode=True)
     
+    youtube_src = models.URLField(
+        verbose_name=_('youtube src'),
+        default=None,
+        blank=True,
+        null=True)
+    
     author = models.ForeignKey(
         'base.Person',
         related_name='insights',
@@ -100,6 +106,10 @@ class Insight(BaseFieldsAbstractModel):
     
     is_completed = models.BooleanField(
         verbose_name=_('is completed'),
+        default=False)
+    
+    show_updated_at = models.BooleanField(
+        _('show updated at'),
         default=False)
     
     published_at = models.DateTimeField(

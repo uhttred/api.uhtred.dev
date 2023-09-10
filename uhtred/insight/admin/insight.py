@@ -66,12 +66,14 @@ class InsightAdmin(admin.ModelAdmin, DynamicRawIDMixin):
                 'pt_content')}),
         (_('Additional'), {
             'fields': (
+                'youtube_src',
                 'visualisations',
                 'tags',)}),
         (_('State and Date'), {
             'fields': (
                 'is_active',
                 'is_completed',
+                'show_updated_at',
                 'published_at',
                 'created_at',
                 'updated_at')})
