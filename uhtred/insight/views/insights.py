@@ -38,8 +38,8 @@ class InsightViewSet(ViewSet, Paginator):
         url_path='random')
     def get_random_insights(self, request: Request) -> Response:
         self.set_pg_limit()
-        qs = Insight.objects.all().random(self.pg_limit)
-        return self.get_paginated_response(qs)
+        return self.get_paginated_response(
+            Insight.objects.random(self.pg_limit))
 
     def retrieve(self, request: Request, slug: str) -> Response:
         """"""
