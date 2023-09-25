@@ -7,14 +7,12 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.text import slugify
 from django.utils.timezone import now
 
-from django_random_queryset import RandomManager
-
 from martor.models import MartorField
 
 from uhtred.core.models.abstract import BaseFieldsAbstractModel
 
 
-class InsightManager(RandomManager):
+class InsightManager(models.Manager):
     
     def default_list(self, *args: Any, **kwargs: Any):
         return super().filter(

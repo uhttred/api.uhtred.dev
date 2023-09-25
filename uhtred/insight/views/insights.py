@@ -7,6 +7,7 @@ from rest_framework.decorators import action
 
 from uhtred.core.views import ViewSet
 from uhtred.core.paginator import Paginator
+from uhtred.core.models.queryset import get_queryset_random_entries
 from uhtred.insight.models import Insight
 from uhtred.insight.serializers import InsightDetail
 
@@ -38,8 +39,8 @@ class InsightViewSet(ViewSet, Paginator):
         url_path='random')
     def get_random_insights(self, request: Request) -> Response:
         self.set_pg_limit()
-        return self.get_paginated_response(
-            Insight.objects.random(self.pg_limit))
+        qs =  get_queryset_random_entries(Insight.objects.default_list(), self.pg_limit)
+        return self.get_list_paginated_response(qs)
 
     def retrieve(self, request: Request, slug: str) -> Response:
         """"""

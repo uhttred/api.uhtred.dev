@@ -4,8 +4,6 @@ from django.utils.translation import gettext_lazy as _
 from django.db.models.constraints import UniqueConstraint
 from django.utils.text import slugify
 
-from django_random_queryset import RandomManager
-
 from uhtred.core.models.abstract import BaseFieldsAbstractModel
 
 
@@ -45,8 +43,6 @@ class Tag(BaseFieldsAbstractModel):
         blank=True,
         default='')
     
-    objects = RandomManager()
-
     def __str__(self) -> str:
         return self.name
     

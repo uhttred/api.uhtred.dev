@@ -7,6 +7,7 @@ from rest_framework.decorators import action
 
 from uhtred.core.views import ViewSet
 from uhtred.core.paginator import Paginator
+from uhtred.core.models.queryset import get_queryset_random_entries
 
 from uhtred.base.serializers import TagDetail
 from uhtred.base.models import Tag
@@ -32,8 +33,8 @@ class TagViewSet(ViewSet, Paginator):
         url_path='random')
     def get_random_tags(self, request: Request) -> Response:
         self.set_pg_limit()
-        return self.get_paginated_response(
-            Tag.objects.random(self.pg_limit))
+        qs =  get_queryset_random_entries(Tag.objects.all(), self.pg_limit)
+        return self.get_list_paginated_response(qs)
 
     def retrieve(self, request: Request, tag_slug: str) -> Response:
         """"""

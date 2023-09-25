@@ -1,4 +1,4 @@
-from typing import Sequence, Union, Tuple
+from typing import Sequence, Union, Optional
 from rest_framework.response import Response
 
 from django.utils.translation import gettext_lazy as _
@@ -55,6 +55,33 @@ class InitLimitPaginatorMixin(object):
             fields, exclude)
 
         return self.pg_response_class(data, status=status_code)
+    
+    def get_list_paginated_response(self,
+                                    entries: list,
+                                    fields: Sequence[str] = [],
+                                    exclude: Sequence[str] = [],
+                                    status_code: int = 200,
+                                    serializer_class = None
+        ):
+
+        fields = fields or self.pg_fields
+        exclude = exclude or self.pg_exclude
+        serializer_class = serializer_class or self.serializer_class  # type: ignore
+        assert serializer_class is not None
+
+        data = serializer_class(entries,
+                                many=True,
+                                fields=fields,
+                                exclude=exclude,
+                                context={'request': self.request}).data  # type: ignore
+
+        context: dict = {
+            'page_size': self.pg_limit,
+            'init': self.pg_init,
+            'count': len(data),  # total current page entries
+            self.pg_entries_key: data}
+
+        return self.pg_response_class(context, status=status_code)
 
     def get_paginated_data(self,
                            queryset,
