@@ -24,13 +24,14 @@ class InsightAdmin(admin.ModelAdmin, DynamicRawIDMixin):
     list_display = (
         'id',
         'title',
+        'visualisations',
         'is_active',
         'is_completed',
         'published_at',
         'created_at')
     
     date_hierarchy = 'created_at'
-    ordering = ('title', 'created_at' )
+    ordering = ('title', 'created_at', 'visualisations')
     search_fields = ('title', 'pt_title', 'id' )
     raw_id_fields = (
         'cover',)

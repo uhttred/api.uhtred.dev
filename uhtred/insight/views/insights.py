@@ -17,6 +17,9 @@ class InsightViewSet(ViewSet, Paginator):
     lookup_value_regex = '[a-z0-9]+(?:-[a-z0-9]+)*'
     pg_name = _('cases listing')
     serializer_class = InsightDetail
+    pg_fields = ('id', 'uid', 'slug', 'title', 'cover', 'author', 'tags',
+                    'pt_title', 'description', 'pt_description', 'created_at',
+                    'published_at')
 
     # pg_query_filter_choices = (
     #     'title__icontains',)
@@ -27,11 +30,16 @@ class InsightViewSet(ViewSet, Paginator):
             queryset = Insight.objects.search(search)
         else:
             queryset = Insight.objects.default_list()
-        return self.get_paginated_response(
-            queryset,
-            fields=('id', 'uid', 'slug', 'title', 'cover', 'author', 'tags',
-                    'pt_title', 'description', 'pt_description', 'created_at',
-                    'published_at'))
+        return self.get_paginated_response(queryset)
+    
+    @action(
+        detail=False,
+        methods=['GET'],
+        url_path='random')
+    def get_random_insights(self, request: Request) -> Response:
+        self.set_pg_limit()
+        qs = Insight.objects.all().random(self.pg_limit)
+        return self.get_paginated_response(qs)
 
     def retrieve(self, request: Request, slug: str) -> Response:
         """"""

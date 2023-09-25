@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404
 
 from rest_framework.request import Request
 from rest_framework.response import Response
+from rest_framework.decorators import action
 
 from uhtred.core.views import ViewSet
 from uhtred.core.paginator import Paginator
@@ -24,6 +25,15 @@ class TagViewSet(ViewSet, Paginator):
     def get(self, request: Request) -> Response:
         """"""
         return self.get_paginated_response(Tag.objects.all())
+    
+    @action(
+        detail=False,
+        methods=['GET'],
+        url_path='random')
+    def get_random_tags(self, request: Request) -> Response:
+        self.set_pg_limit()
+        return self.get_paginated_response(
+            Tag.objects.random(self.pg_limit))
 
     def retrieve(self, request: Request, tag_slug: str) -> Response:
         """"""
