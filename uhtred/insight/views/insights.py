@@ -22,8 +22,8 @@ class InsightViewSet(ViewSet, Paginator):
                     'pt_title', 'description', 'pt_description', 'created_at',
                     'published_at')
 
-    # pg_query_filter_choices = (
-    #     'title__icontains',)
+    pg_query_filter_choices = (
+        'tags__in',)
 
     def get(self, request: Request) -> Response:
         """"""

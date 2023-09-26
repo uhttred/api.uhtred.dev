@@ -36,12 +36,12 @@ class TagViewSet(ViewSet, Paginator):
         qs =  get_queryset_random_entries(Tag.objects.all(), self.pg_limit)
         return self.get_list_paginated_response(qs)
 
-    def retrieve(self, request: Request, tag_slug: str) -> Response:
+    def retrieve(self, request: Request, slug: str) -> Response:
         """"""
-        obj: Tag = self.get_object(tag_slug)
+        obj: Tag = self.get_object(slug)
         return Response(self.serializer_class(obj).data)
     
-    def get_object(self, tag_slug: str) -> Tag:
-        obj = get_object_or_404(Tag, slug=tag_slug)
+    def get_object(self, slug: str) -> Tag:
+        obj = get_object_or_404(Tag, slug=slug)
         self.check_object_permissions(self.request, obj)
         return obj

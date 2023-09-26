@@ -145,6 +145,9 @@ class InitLimitPaginatorMixin(object):
         filters: dict = {}
         for key, val in self.request.GET.items():  # type: ignore
             if key in self.pg_query_filter_choices:
+                if key.endswith('__in'):
+                    filters[key] = list(filter(lambda x: x, val.split(',')))
+                    continue
                 filters[key] = val
         return filters
 
