@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect
 from django.utils.html import mark_safe
 
 from dynamic_raw_id.admin import DynamicRawIDMixin
+from dynamic_raw_id.filters import DynamicRawIDFilter
 
 from martor.widgets import AdminMartorWidget
 
@@ -36,10 +37,11 @@ class InsightAdmin(admin.ModelAdmin, DynamicRawIDMixin):
 
     filter_horizontal = ('topics', )
     list_filter = (
-        'series',
+        # ('series', DynamicRawIDFilter),
         'published_at',
         'is_active',
-        'is_completed')
+        'is_completed',
+    )
 
     fieldsets = (
         (_('Preview'), {

@@ -3,24 +3,23 @@ from django.utils.translation import gettext_lazy as _
 
 from dynamic_raw_id.admin import DynamicRawIDMixin
 
-from uhtred.base.models import Person
+from uhtred.insight.models import Author
 
 
-@admin.register(Person)
-class PersonAdmin(admin.ModelAdmin, DynamicRawIDMixin):
+@admin.register(Author)
+class AuthorAdmin(admin.ModelAdmin, DynamicRawIDMixin):
 
-    list_display_links = ('id', 'image', 'name', )
+    list_display_links = ('name', )
     list_display = (
         'id',
         'image',
         'name',
-        'company_name',
         'headline',
         'created_at')
 
     date_hierarchy = 'created_at'
     ordering = ('name', 'created_at')
-    search_fields = ('name', 'job_title')
+    search_fields = ('name', 'id')
     raw_id_fields = (
         'avatar',)
 
@@ -29,17 +28,22 @@ class PersonAdmin(admin.ModelAdmin, DynamicRawIDMixin):
             'fields': (
                 'id',
                 'uid',
-                'name')}),
+                'name',
+                'pt_name')}),
         (_('Details'), {
             'fields': (
                 'headline',
-                'job_title',
-                'company_name',
-                'website',
                 'avatar',
                 'image')}),
+        (_('Social Links'), {
+            'fields': (
+                'website',
+                'instagram',
+                'linkedin')}),
         (_('State and Date'), {
-            'fields': ('created_at', 'updated_at')})
+            'fields': (
+                'created_at',
+                'updated_at')})
     )
 
     readonly_fields = (
@@ -51,5 +55,5 @@ class PersonAdmin(admin.ModelAdmin, DynamicRawIDMixin):
 
     def image(self, obj):
         if obj.avatar:
-            return obj.avatar.admin_image_preview()
+            return obj.avatar.admin_image_preview(60)
         return '-'

@@ -85,6 +85,9 @@ class Serie(BaseFieldsAbstractModel):
         verbose_name=_('is active'),
         default=False)
 
+    def __str__(self):
+        return self.title
+
     def __slugify(self):
         if not self.slug:
             self.slug = slugify(

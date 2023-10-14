@@ -4,11 +4,20 @@ from django.utils.translation import gettext_lazy as _
 from dynamic_raw_id.admin import DynamicRawIDMixin
 
 from uhtred.user.models import User
-from uhtred.insight.models import Serie
+from uhtred.insight.models import Serie, SerieItem
+
+
+class SerieItemInline(admin.TabularInline, DynamicRawIDMixin):
+    model = SerieItem
+    raw_id_fields = (
+        'insight',)
+    extra = 1
 
 
 @admin.register(Serie)
 class SerieAdmin(admin.ModelAdmin, DynamicRawIDMixin):
+
+    inlines = [SerieItemInline]
 
     list_display_links = ('title', )
     list_display = (
@@ -24,7 +33,7 @@ class SerieAdmin(admin.ModelAdmin, DynamicRawIDMixin):
 
     filter_horizontal = ('topics', )
     list_filter = (
-        'created_at',
+        'status',
         'is_active',)
 
     fieldsets = (

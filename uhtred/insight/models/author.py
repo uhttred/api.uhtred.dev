@@ -48,3 +48,6 @@ class Author(BaseFieldsAbstractModel):
         verbose_name='instagram',
         blank=True,
         default='')
+
+    def __str__(self) -> str:
+        return self.name
