@@ -30,16 +30,16 @@ class BaseFieldsAbstractModel(BaseDateTimeFieldsAbstractModel):
 class AbstractTokenCode(BaseDateTimeFieldsAbstractModel):
     class Meta:
         abstract = True
-    
+
     code = models.CharField(max_length=6)
     life_time = models.DateTimeField()
 
-    def validate (self, code: str) -> bool:
+    def validate(self, code: str) -> bool:
         if code == self.code and self.life_time > now():
             self.delete()
             return True
         return False
-    
+
     def update(self, seconds: int = 1800):
         self.code = get_random_string_code(6, '0123456789')
         self.life_time = timedelta(seconds=seconds) + now()

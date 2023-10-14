@@ -28,10 +28,10 @@ SECRET_KEY = env('SECRET_KEY', cast=str)
 DEBUG = env('DEBUG', cast=bool, default=False)
 
 ADMINS = env('ADMIN_LIST', default=[
-    ( 'Uhtred M.', 'am@uhtred.dev' )])
+    ('Uhtred M.', 'am@uhtred.dev')])
 
 TESTING = env('TESTING', cast=bool,
-    default= len(sys.argv) > 1 and sys.argv[1] == 'test')
+              default=len(sys.argv) > 1 and sys.argv[1] == 'test')
 
 SEND_EMAIL_ON_TESTING = env('SEND_EMAIL_ON_TESTING', cast=bool, default=False)
 
@@ -54,8 +54,9 @@ INSTALLED_APPS = [
     'uhtred.base',
     'uhtred.case',
     'uhtred.store',
+    'uhtred.notify',
     'uhtred.insight',
-    'uhtred.newsletter',
+    # 'uhtred.newsletter',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -112,7 +113,6 @@ if not env('DATABASE_URL', default=''):
 else:
     DATABASES = {'default': env.db()}
 
-
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 PASSWORD_RESET_TIMEOUT = 3600
@@ -132,7 +132,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
@@ -147,8 +146,6 @@ TIME_ZONE = 'Africa/Luanda'
 
 LOCALE_PATHS = (
     BASE_DIR / '../locale',)
-
-TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -166,11 +163,11 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STORAGES = {
     "default": {
         "BACKEND": env('DEFAULT_FILE_STORAGE',
-                        default='storages.backends.gcloud.GoogleCloudStorage')
+                       default='storages.backends.gcloud.GoogleCloudStorage')
     },
     "staticfiles": {
         "BACKEND": env('STATICFILES_STORAGE',
-                        default='storages.backends.gcloud.GoogleCloudStorage')
+                       default='storages.backends.gcloud.GoogleCloudStorage')
     }
 }
 

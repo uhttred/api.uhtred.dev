@@ -14,7 +14,7 @@ admin.site.index_title = 'Uhtred'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('martor/', include('martor.urls')),
-    path('newsletter/', include('uhtred.newsletter.urls')),
+    # path('newsletter/', include('uhtred.newsletter.urls')),
     path('', include('uhtred.insight.urls')),
     path('', include('uhtred.case.urls')),
     path('', include('uhtred.store.urls')),
@@ -25,4 +25,3 @@ if settings.DEBUG:
     urlpatterns += static(
         settings.MEDIA_URL,
         document_root=settings.MEDIA_ROOT)
-    
