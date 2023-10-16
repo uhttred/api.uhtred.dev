@@ -41,6 +41,18 @@ class InsightViewSet(ViewSet, Paginator):
         qs = get_queryset_random_entries(Insight.objects.default_list(), self.pg_limit)
         return self.get_list_paginated_response(qs)
 
+    @action(
+        detail=False,
+        methods=['GET'],
+        url_path='featured')
+    def get_random_insights(self, request: Request) -> Response:
+        if request.GET.get('minimal-fields') == 'yes':
+            self.pg_fields = ['id', 'title', 'pt_title', 'slug']
+        self.set_pg_limit()
+        qs = get_queryset_random_entries(
+            Insight.objects.default_list(is_featured=True), self.pg_limit)
+        return self.get_list_paginated_response(qs)
+
     def retrieve(self, request: Request, slug: str) -> Response:
         """"""
         obj: Insight = self.get_object(slug)

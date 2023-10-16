@@ -47,6 +47,5 @@ class Email(BaseFieldsAbstractModel):
         verbose_name=_('subscribe to all topics'),
         default=False)
 
-    is_active = models.BooleanField(
-        verbose_name=_('is active'),
-        default=True)
+    def __str__(self):
+        return f'{self.name} ({self.email})' if self.name else self.email

@@ -118,6 +118,10 @@ class Insight(BaseFieldsAbstractModel):
         verbose_name=_('is completed'),
         default=False)
 
+    is_featured = models.BooleanField(
+        verbose_name=_('is featured'),
+        default=False)
+
     show_updated_at = models.BooleanField(
         _('show updated at'),
         default=False)
