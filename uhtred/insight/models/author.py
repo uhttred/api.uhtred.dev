@@ -51,3 +51,11 @@ class Author(BaseFieldsAbstractModel):
 
     def __str__(self) -> str:
         return self.name
+
+    @property
+    def count_insights(self) -> int:
+        return self.insights.filter(is_active=True).count()
+
+    @property
+    def count_series(self) -> int:
+        return self.series.filter(is_active=True).count()

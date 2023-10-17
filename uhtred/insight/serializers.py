@@ -6,15 +6,18 @@ from uhtred.core.serializers import DynamicFieldsModelSerializer
 from uhtred.insight.models import (
     Insight,
     Topic,
+    Serie,
     Author)
 
 
 class AuthorDetail(DynamicFieldsModelSerializer):
     class Meta:
         model = Author
-        exclude = ['uid']
+        fields = '__all__'
 
     avatar = ImageDetail(read_only=True)
+    count_series = serializers.IntegerField(read_only=True)
+    count_insights = serializers.IntegerField(read_only=True)
 
 
 class TopicDetail(DynamicFieldsModelSerializer):
@@ -23,7 +26,9 @@ class TopicDetail(DynamicFieldsModelSerializer):
         fields = [
             'id',
             'name',
-            'pt_name'
+            'pt_name',
+            'is_main',
+            'is_category'
         ]
 
 
@@ -35,3 +40,15 @@ class InsightDetail(DynamicFieldsModelSerializer):
     cover = ImageDetail(read_only=True)
     author = AuthorDetail(read_only=True)
     topics = TopicDetail(read_only=True, many=True)
+
+
+class SerieDetail(DynamicFieldsModelSerializer):
+
+    class Meta:
+        model = Serie
+        exclude = ['is_active']
+
+    author = AuthorDetail(read_only=True)
+    topics = TopicDetail(read_only=True, many=True)
+    count_insights = serializers.IntegerField(read_only=True)
+    count_insights_views = serializers.IntegerField(read_only=True)

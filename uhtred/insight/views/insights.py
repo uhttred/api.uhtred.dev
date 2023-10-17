@@ -17,12 +17,24 @@ class InsightViewSet(ViewSet, Paginator):
     lookup_value_regex = '[a-z0-9]+(?:-[a-z0-9]+)*'
     pg_name = _('cases listing')
     serializer_class = InsightDetail
-    pg_fields = ('id', 'uid', 'slug', 'title', 'cover', 'author', 'tags',
+    pg_fields = ('id', 'uid', 'slug', 'title', 'cover', 'author', 'topics',
                  'pt_title', 'description', 'pt_description', 'created_at',
                  'published_at')
 
+    pg_order_by: str = '-published_at'
+    pg_order_choices: tuple = (
+        'visualisations',
+        '-visualisations',
+        'published_at',
+        '-published_at',
+        '-created_at',
+        'created_at',
+        '-updated_at',
+        'updated_at')
     pg_query_filter_choices = (
-        'tags__in',)
+        'topics__in',
+        'series__in',
+        'is_featured')
 
     def get(self, request: Request) -> Response:
         """"""
@@ -45,7 +57,7 @@ class InsightViewSet(ViewSet, Paginator):
         detail=False,
         methods=['GET'],
         url_path='featured')
-    def get_random_insights(self, request: Request) -> Response:
+    def get_random_featured_insights(self, request: Request) -> Response:
         if request.GET.get('minimal-fields') == 'yes':
             self.pg_fields = ['id', 'title', 'pt_title', 'slug']
         self.set_pg_limit()

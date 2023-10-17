@@ -55,7 +55,7 @@ class InitLimitPaginatorMixin(object):
             fields, exclude)
 
         return self.pg_response_class(data, status=status_code)
-    
+
     def get_list_paginated_response(self,
                                     entries: list,
                                     fields: Sequence[str] = [],
@@ -103,12 +103,12 @@ class InitLimitPaginatorMixin(object):
             self.pg_max_limit = max_limit
         self.__set_pg_limit()
 
-    def __get_paginated_queryset(self, queryset: QuerySet) -> QuerySet:
+    def __get_paginated_queryset(self, queryset: QuerySet) -> QuerySet | list:
         self.__set_defaults()
 
         if self.pg_query_filter_choices and self.request.GET:  # type: ignore
             queryset = queryset.filter(
-                **self.__get_query_filters())
+                **self.__get_query_filters()).distinct()
 
         self.pg_count = queryset.count()
 
@@ -193,7 +193,7 @@ class InitLimitPaginatorMixin(object):
 
     def __set_defaults(self) -> None:
         """
-        set dafaults pagination 
+        set dafaults pagination
         values from query paramenters
         """
         self.__set_pg_init()

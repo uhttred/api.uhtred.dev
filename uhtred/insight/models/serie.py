@@ -8,8 +8,21 @@ from uhtred.core.models.abstract import BaseFieldsAbstractModel
 
 
 class SerieStatusChoice(models.TextChoices):
-    IN_LAUNCH = 'in_lauch', _('in launch')
+    IN_LAUNCH = 'in_launch', _('in launch')
     COMPLETED = 'completed', _('completed')
+
+
+class SerieManager(models.Manager):
+
+    def default_list(self, *args, **kwargs):
+        return super().filter(
+            is_active=True).filter(*args, **kwargs)
+
+    def search(self, lookup: str):
+        return self.default_list(
+            models.Q(title__icontains=lookup) |
+            models.Q(pt_title__icontains=lookup)
+        ).distinct()
 
 
 class Serie(BaseFieldsAbstractModel):
@@ -27,6 +40,7 @@ class Serie(BaseFieldsAbstractModel):
         )
 
     Status = SerieStatusChoice
+    objects = SerieManager()
 
     created_by = models.ForeignKey(
         'user.User',
@@ -85,6 +99,15 @@ class Serie(BaseFieldsAbstractModel):
         verbose_name=_('is active'),
         default=False)
 
+    @property
+    def count_insights(self) -> int:
+        return self.insights.count()
+
+    @property
+    def count_insights_views(self) -> int:
+        return self.insights.aggregate(
+            models.Sum('visualisations')).get('visualisations__sum', 0)
+
     def __str__(self):
         return self.title
 
@@ -97,3 +120,5 @@ class Serie(BaseFieldsAbstractModel):
     def save(self, *args, **kwargs) -> None:
         self.__slugify()
         super(Serie, self).save(*args, **kwargs)
+
+
