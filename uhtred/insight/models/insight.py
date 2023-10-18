@@ -142,6 +142,12 @@ class Insight(BaseFieldsAbstractModel):
                 '%s %s' % (self.title, get_random_string_code(4)),
                 allow_unicode=False)
 
+    @property
+    def serie(self):
+        """primary insight serie"""
+        return self.series.first()
+
+
     def up_visualisations(self):
         self.visualisations = self.visualisations + 1
         self.save()

@@ -13,6 +13,7 @@ from uhtred.insight.serializers import InsightDetail
 
 
 class InsightViewSet(ViewSet, Paginator):
+
     lookup_field = 'slug'
     lookup_value_regex = '[a-z0-9]+(?:-[a-z0-9]+)*'
     pg_name = _('cases listing')
@@ -30,7 +31,9 @@ class InsightViewSet(ViewSet, Paginator):
         '-created_at',
         'created_at',
         '-updated_at',
-        'updated_at')
+        'updated_at',
+        '-serieitem__number',
+        'serieitem__number')
     pg_query_filter_choices = (
         'topics__in',
         'series__in',
@@ -38,11 +41,20 @@ class InsightViewSet(ViewSet, Paginator):
 
     def get(self, request: Request) -> Response:
         """"""
-        if search := request.GET.get('search'):
+
+        if request.query_params.get('minimal-fields') == 'yes':
+            self.pg_fields = ['id', 'title', 'pt_title', 'slug']
+
+        if search := request.query_params.get('search'):
             queryset = Insight.objects.search(search)
         else:
             queryset = Insight.objects.default_list()
         return self.get_paginated_response(queryset)
+
+    def retrieve(self, request: Request, slug: str) -> Response:
+        """"""
+        obj: Insight = self.get_object(slug)
+        return Response(self.serializer_class(obj).data)
 
     @action(
         detail=False,
@@ -64,11 +76,6 @@ class InsightViewSet(ViewSet, Paginator):
         qs = get_queryset_random_entries(
             Insight.objects.default_list(is_featured=True), self.pg_limit)
         return self.get_list_paginated_response(qs)
-
-    def retrieve(self, request: Request, slug: str) -> Response:
-        """"""
-        obj: Insight = self.get_object(slug)
-        return Response(self.serializer_class(obj).data)
 
     @action(
         detail=True,
