@@ -21,8 +21,6 @@ class SerieViewSet(ViewSet, Paginator):
 
     pg_order_by: str = '-created_at'
     pg_order_choices: tuple = (
-        'visualisations',
-        '-visualisations',
         '-created_at',
         'created_at',
         '-updated_at',
@@ -35,11 +33,16 @@ class SerieViewSet(ViewSet, Paginator):
 
     def get(self, request: Request) -> Response:
         """"""
-        if search := request.GET.get('search'):
+        if search := request.query_params.get('search'):
             queryset = Serie.objects.search(search)
         else:
             queryset = Serie.objects.default_list()
         return self.get_paginated_response(queryset)
+
+    def retrieve(self, request: Request, slug: str) -> Response:
+        """"""
+        obj: Serie = self.get_object(slug)
+        return Response(self.serializer_class(obj).data)
 
     def get_object(self, slug: str) -> Serie:
         obj: Serie = get_object_or_404(Serie, slug=slug, is_active=True)

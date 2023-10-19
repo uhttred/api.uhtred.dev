@@ -16,7 +16,6 @@ class InsightViewSet(ViewSet, Paginator):
 
     lookup_field = 'slug'
     lookup_value_regex = '[a-z0-9]+(?:-[a-z0-9]+)*'
-    pg_name = _('cases listing')
     serializer_class = InsightDetail
     pg_fields = ('id', 'uid', 'slug', 'title', 'cover', 'author', 'topics',
                  'pt_title', 'description', 'pt_description', 'created_at',

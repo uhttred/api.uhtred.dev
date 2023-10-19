@@ -26,6 +26,7 @@ class TopicDetail(DynamicFieldsModelSerializer):
         model = Topic
         fields = [
             'id',
+            'slug',
             'name',
             'pt_name',
             'is_main',
