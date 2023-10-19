@@ -1,7 +1,12 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.db.models.functions import Lower
+from django.db.models.constraints import UniqueConstraint
 
 from uhtred.core.models.abstract import BaseFieldsAbstractModel
+from uhtred.core.validators import (
+    UsernameValidator,
+    NoPoitSequenceValidator)
 
 
 class Author(BaseFieldsAbstractModel):
@@ -9,6 +14,11 @@ class Author(BaseFieldsAbstractModel):
     class Meta:
         verbose_name = _('author')
         verbose_name_plural = _('authors')
+        constraints: tuple = (
+            UniqueConstraint(
+                Lower('username'),
+                name='unique_author_username'),
+        )
 
     avatar = models.ForeignKey(
         'base.Image',
@@ -21,6 +31,17 @@ class Author(BaseFieldsAbstractModel):
     name = models.CharField(
         verbose_name=_('name'),
         max_length=45)
+
+    username = models.CharField(
+        _('username'),
+        max_length=25,
+        unique=True,
+        null=True,
+        default=None,
+        validators=[UsernameValidator(), NoPoitSequenceValidator()],
+        error_messages={
+            'unique': _('An author with that username already exists'),
+        })
 
     pt_name = models.CharField(
         verbose_name=_('name (pt)'),

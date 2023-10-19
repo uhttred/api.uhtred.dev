@@ -34,6 +34,7 @@ class InsightViewSet(ViewSet, Paginator):
         '-serieitem__number',
         'serieitem__number')
     pg_query_filter_choices = (
+        'author',
         'topics__in',
         'series__in',
         'is_featured')

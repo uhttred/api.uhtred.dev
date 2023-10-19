@@ -55,7 +55,7 @@ class InsightDetail(DynamicFieldsModelSerializer):
     cover = ImageDetail(read_only=True)
     # serie_number = serializers.SerializerMethodField()
     author = AuthorDetail(read_only=True, fields=[
-        'uid', 'name', 'pt_name', 'avatar', 'headline'])
+        'uid', 'name', 'username', 'pt_name', 'avatar', 'headline'])
     topics = TopicDetail(read_only=True, many=True)
     serie = SerieDetail(read_only=True, fields=[
         'id', 'slug', 'title', 'pt_title', 'status'])

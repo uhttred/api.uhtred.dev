@@ -27,6 +27,7 @@ class SerieViewSet(ViewSet, Paginator):
         'updated_at')
 
     pg_query_filter_choices = (
+        'author',
         'topics__in',
         'insights__in',
         'status')

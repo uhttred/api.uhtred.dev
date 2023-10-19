@@ -14,6 +14,7 @@ class AuthorAdmin(admin.ModelAdmin, DynamicRawIDMixin):
         'id',
         'image',
         'name',
+        'username',
         'headline',
         'created_at')
 
@@ -29,7 +30,8 @@ class AuthorAdmin(admin.ModelAdmin, DynamicRawIDMixin):
                 'id',
                 'uid',
                 'name',
-                'pt_name')}),
+                'pt_name',
+                'username')}),
         (_('Details'), {
             'fields': (
                 'headline',

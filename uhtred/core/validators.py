@@ -6,6 +6,7 @@ from django.utils.translation import gettext_lazy as _
 
 uuid_regex: str = '[0-9a-f]{8}-?[0-9a-f]{4}-?4[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}'
 slug_regex: str = '[-a-z0-9_]+'
+username_regex: str = '(?![0-9.])[A-z0-9.]{3,20}(?<![.])'
 int_id_regex: str = '[0-9]+'
 
 
@@ -25,7 +26,7 @@ class UsernameValidator(validators.RegexValidator):
 
 @deconstructible
 class NameValidator(validators.RegexValidator):
-    
+
     regex   = r'^[A-Za-zÀ-Ÿ0-9. ]{1,40}$'
     message =  _(
         '1 to 40 characters maximum. '
@@ -50,7 +51,7 @@ class EmailValidator(validators.RegexValidator):
 
 @deconstructible
 class PhoneAOValidator(validators.RegexValidator):
-    
+
     regex = r'^(?:(\+244|00244))?(9)(1|2|3|4|5|9)([\d]{7,7})$'
     default_replace = r'\2\3\4'
     message =  _('Invalid national number of angola')
@@ -58,11 +59,11 @@ class PhoneAOValidator(validators.RegexValidator):
     @classmethod
     def match(cls, string):
         return re.match(cls.regex, string)
-    
+
     @classmethod
     def clean_number(cls, phone: str):
         return re.sub(cls.regex, cls.default_replace, phone)
-    
+
     @classmethod
     def is_the_same(cls, phone1: str, phone2: str):
         return cls.clean_number(phone1) == cls.clean_number(phone2)
@@ -72,7 +73,7 @@ DefaultPhoneValidator = PhoneAOValidator
 
 @deconstructible
 class NoPoitSequenceValidator(validators.RegexValidator):
-    
+
     regex = r'[.]{2,}'
     inverse_match = True
     message =  _('Must not contain sequence of dots')
@@ -84,7 +85,7 @@ class NoPoitSequenceValidator(validators.RegexValidator):
 
 @deconstructible
 class PasswordValidator(validators.RegexValidator):
-    
+
     regex   = r'^(.){8,}$'
     message =  _(
         'Weak password. 8 characters minimum. '
@@ -94,4 +95,3 @@ class PasswordValidator(validators.RegexValidator):
     @classmethod
     def match(cls, string):
         return re.match(cls.regex,string)
-     
