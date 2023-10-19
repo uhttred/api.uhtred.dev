@@ -14,6 +14,7 @@ class EmailAdmin(admin.ModelAdmin):
         'id',
         'email',
         'name',
+        'preferred_language',
         'verified',
         'subscribe_to_all',
         'created_at')
@@ -23,6 +24,7 @@ class EmailAdmin(admin.ModelAdmin):
     filter_horizontal = ('subscribed_topics',)
     search_fields = ('email', 'name', 'id')
     list_filter = (
+        'preferred_language',
         'subscribe_to_all',
         'verified')
 
@@ -35,6 +37,7 @@ class EmailAdmin(admin.ModelAdmin):
         (_('Mode Detail'), {
             'fields': (
                 'name',
+                'preferred_language',
                 'subscribed_topics')}),
         (_('State and Date'), {
             'fields': (

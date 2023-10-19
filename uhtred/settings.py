@@ -191,3 +191,10 @@ REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',
     )}
+
+POSTMARK_SERVER_TOKEN = env('POSTMARK_SERVER_TOKEN', default='')
+
+UHTRED = {
+    'app_base_url': env('UHTRED_APP_BASE_URL', default=''),
+    'api_base_url': env('UHTRED_API_BASE_URL', default=''),
+}

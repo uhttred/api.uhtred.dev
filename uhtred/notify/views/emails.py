@@ -12,6 +12,8 @@ from uhtred.notify.serializers import EmailDetail
 from uhtred.notify.models import Email
 from uhtred.core.validators import uuid_regex
 
+from uhtred.notify.tasks import send_newsletter_confirmation_email
+
 
 class EmailViewSet(ViewSet):
 
@@ -28,7 +30,6 @@ class EmailViewSet(ViewSet):
                 'subscribed_topics',
                 'email',
                 'name'])
-
         try:
             email = Email.objects.get(
                 email=request.data.get('email', '').lower(),
@@ -36,8 +37,7 @@ class EmailViewSet(ViewSet):
         except Email.DoesNotExist:
             pass
         else:
-            # TODO: resend verification e-mail
-            print(email.email)
+            send_newsletter_confirmation_email(email)
             return Response(status=status.HTTP_204_NO_CONTENT)
 
         if seriaizer.is_valid(raise_exception=True):

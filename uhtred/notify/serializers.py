@@ -1,4 +1,4 @@
-from rest_framework import serializers
+from django.utils.translation import get_language
 
 from uhtred.core.serializers import DynamicFieldsModelSerializer
 from uhtred.notify.models import Email
@@ -13,9 +13,13 @@ class EmailDetail(DynamicFieldsModelSerializer):
 
     def create(self, data):
 
+        language = get_language()[:2]
+        language = language if language in ['pt', 'en'] else None
+
         email = Email.objects.create(
             name=data.get('name'),
             email=data.get('email').lower(),
+            preferred_language=data.get('preferred_language', language),
             subscribe_to_all=data.get('subscribe_to_all', False))
 
         if subscribed_topics := data.get('subscribed_topics'):
@@ -25,4 +29,3 @@ class EmailDetail(DynamicFieldsModelSerializer):
                 Topic.objects.filter(is_category=True))
 
         return email
-

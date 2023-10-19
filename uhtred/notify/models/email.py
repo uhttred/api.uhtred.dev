@@ -9,6 +9,11 @@ from uhtred.core.validators import (
     NameValidator)
 
 
+class PreferredLanguageChoices(models.TextChoices):
+    EN = 'en', _('English')
+    PT = 'pt', _('Portuguese')
+
+
 class Email(BaseFieldsAbstractModel):
 
     class Meta:
@@ -20,6 +25,8 @@ class Email(BaseFieldsAbstractModel):
                 Lower('email'),
                 name='unique_email_email'),
         )
+
+    PL = PreferredLanguageChoices
 
     subscribed_topics = models.ManyToManyField(
         'insight.Topic',
@@ -38,6 +45,14 @@ class Email(BaseFieldsAbstractModel):
     email = models.EmailField(
         unique=True,
         verbose_name=_('email'))
+
+    preferred_language = models.CharField(
+        verbose_name=_('preferred language'),
+        max_length=2,
+        default=None,
+        null=True,
+        blank=True,
+        choices=PreferredLanguageChoices.choices)
 
     verified = models.BooleanField(
         verbose_name=_('verifeid'),
