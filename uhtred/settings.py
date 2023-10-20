@@ -199,8 +199,12 @@ UHTRED = {
     'api_base_url': env('UHTRED_API_BASE_URL', default=''),
     'postmark_email_template': {
         'email_confirmation': {
-            'pt': env('UHTRED_PET_EC_PT', default=33542968),
-            'en': env('UHTRED_PET_EC_EN', default=33543094)
-        }
+            'pt': env('UHTRED_PET_EC_PT', default=33542968, cast=int),
+            'en': env('UHTRED_PET_EC_EN', default=33543094, cast=int)
+        },
+        'insight_published': {
+            'pt': env('UHTRED_PET_IP_PT', default=33552524, cast=int),
+            'en': env('UHTRED_PET_IP_EN', default=33552526, cast=int)
+        },
     }
 }

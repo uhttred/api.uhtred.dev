@@ -9,6 +9,7 @@ from django.utils.timezone import now
 
 from martor.models import MartorField
 
+from uhtred.insight.signals import insight_published
 from uhtred.core.models.abstract import BaseFieldsAbstractModel
 from uhtred.core.text import get_random_string_code
 
@@ -156,6 +157,9 @@ class Insight(BaseFieldsAbstractModel):
         if self.is_completed and not self.published_at:
             self.published_at = now()
             self.save()
+            insight_published.send(
+                self.__class__,
+                insight=self)
             return True
         return False
 
