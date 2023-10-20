@@ -18,6 +18,14 @@ class TopicViewSet(ViewSet, Paginator):
     lookup_value_regex = '[a-z0-9]+(?:-[a-z0-9]+)*'
     pg_limit = 100
     serializer_class = TopicDetail
+    pg_order_choices = (
+        'is_category',
+        '-is_category',
+        'name',
+        '-name',
+        'created_at',
+        '-created_at'
+    )
 
     # pg_query_filter_choices = (
     #     'title__icontains',)
@@ -25,6 +33,11 @@ class TopicViewSet(ViewSet, Paginator):
     def get(self, request: Request) -> Response:
         """"""
         return self.get_paginated_response(Topic.objects.all())
+
+    def retrieve(self, request: Request, slug: str) -> Response:
+        """"""
+        obj: Topic = self.get_object(slug)
+        return Response(self.serializer_class(obj).data)
 
     @action(
         detail=False,
@@ -34,11 +47,6 @@ class TopicViewSet(ViewSet, Paginator):
         self.set_pg_limit()
         qs = get_queryset_random_entries(Topic.objects.all(), self.pg_limit)
         return self.get_list_paginated_response(qs)
-
-    def retrieve(self, request: Request, slug: str) -> Response:
-        """"""
-        obj: Topic = self.get_object(slug)
-        return Response(self.serializer_class(obj).data)
 
     def get_object(self, slug: str) -> Topic:
         obj = get_object_or_404(Topic, slug=slug)

@@ -45,6 +45,30 @@ class EmailViewSet(ViewSet):
             return Response(seriaizer.data, status=status.HTTP_201_CREATED)
         raise APIError(_('Some error occurred, try later'))
 
+    def update(self, request: Request, uuid: str) -> Response:
+        """"""
+        email: Email = self.get_object(uuid)
+
+        if email.email == request.query_params.get('email'):
+
+            serializer = self.serializer_class(
+                email,
+                data=request.data,
+                fields=[
+                    'name',
+                    'preferred_language',
+                    'subscribe_to_all',
+                    'subscribed_topics'
+                ]
+            )
+
+            if serializer.is_valid(raise_exception=True):
+                email = serializer.save()
+            return Response(
+                self.serializer_class(email).data,
+                status=status.HTTP_202_ACCEPTED)
+        raise APIError()
+
     @action(
         methods=['PATCH'],
         url_path='verified',
@@ -52,13 +76,17 @@ class EmailViewSet(ViewSet):
     def email_verification(self, request: Request, uuid: str) -> Response:
         """"""
         email: Email = self.get_object(uuid)
-        if email.email == request.GET.get('email'):
+        if email.email == request.query_params.get('email'):
             if not email.verified:
                 email.verified = True
                 email.save()
                 # TODO: send email notification welcome
-                return Response(status=status.HTTP_202_ACCEPTED)
-            return Response(status=status.HTTP_204_NO_CONTENT)
+                # return Response(
+                #     self.serializer_class(email).data,
+                #     status=status.HTTP_202_ACCEPTED)
+            return Response(
+                self.serializer_class(email).data,
+                status=status.HTTP_202_ACCEPTED)
         raise APIError()
 
     def delete(self, request: Request, uuid: str) -> Response:
@@ -70,6 +98,7 @@ class EmailViewSet(ViewSet):
         raise APIError()
 
     def get_object(self, uuid: str) -> Email:
+        print(uuid)
         obj = get_object_or_404(Email, uid=uuid)
         self.check_object_permissions(self.request, obj)
         return obj
