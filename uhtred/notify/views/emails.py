@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.utils.translation import gettext_lazy as _
 from django.shortcuts import get_object_or_404
 
@@ -89,16 +90,22 @@ class EmailViewSet(ViewSet):
                 status=status.HTTP_202_ACCEPTED)
         raise APIError()
 
-    def delete(self, request: Request, uuid: str) -> Response:
-        """"""
+    @action(
+        methods=['GET'],
+        url_path='unsubscribe',
+        detail=True)
+    def unsubscribe_email(self, request: Request, uuid: str) -> HttpResponse:
         email: Email = self.get_object(uuid)
-        if email.email == request.GET.get('email'):
+        if email.email == request.query_params.get('email'):
             email.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
+            msg = _('Your email %s has been successfully deleted.\nYou will no '
+                    'longer receive notifications.\nIf you change your mind, feel '
+                    'free to re-subscribe to our newsletter.\nWe look forward to '
+                    'seeing you. You can close this tab.') % email.email
+            return HttpResponse(msg, status=status.HTTP_200_OK, content_type='text/plain')
         raise APIError()
 
     def get_object(self, uuid: str) -> Email:
-        print(uuid)
         obj = get_object_or_404(Email, uid=uuid)
         self.check_object_permissions(self.request, obj)
         return obj

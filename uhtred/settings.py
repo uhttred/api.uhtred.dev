@@ -197,4 +197,10 @@ POSTMARK_SERVER_TOKEN = env('POSTMARK_SERVER_TOKEN', default='')
 UHTRED = {
     'app_base_url': env('UHTRED_APP_BASE_URL', default=''),
     'api_base_url': env('UHTRED_API_BASE_URL', default=''),
+    'postmark_email_template': {
+        'email_confirmation': {
+            'pt': env('UHTRED_PET_EC_PT', default=33542968),
+            'en': env('UHTRED_PET_EC_EN', default=33543094)
+        }
+    }
 }
