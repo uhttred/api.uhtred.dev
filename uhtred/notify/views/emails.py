@@ -81,13 +81,12 @@ class EmailViewSet(ViewSet):
             if not email.verified:
                 email.verified = True
                 email.save()
-                # TODO: send email notification welcome
-                # return Response(
-                #     self.serializer_class(email).data,
-                #     status=status.HTTP_202_ACCEPTED)
+                return Response(
+                    self.serializer_class(email).data,
+                    status=status.HTTP_202_ACCEPTED)
             return Response(
                 self.serializer_class(email).data,
-                status=status.HTTP_202_ACCEPTED)
+                status=status.HTTP_200_OK)
         raise APIError()
 
     @action(
