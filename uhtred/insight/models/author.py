@@ -66,7 +66,7 @@ class Author(BaseFieldsAbstractModel):
         default='')
 
     linkedin = models.URLField(
-        verbose_name='instagram',
+        verbose_name='linkedin',
         blank=True,
         default='')
 

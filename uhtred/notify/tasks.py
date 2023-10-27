@@ -11,7 +11,7 @@ from uhtred.insight.models import Insight
 from .models import Email
 
 
-EMAIL_FROM = 'Uhtred M <noreply@uhtred.dev>'
+EMAIL_FROM = conf.email_from
 
 
 def send_newsletter_confirmation_email(email: Email) -> None:
@@ -70,7 +70,7 @@ def send_newsletter_article_published(insight: Insight) -> None:
 
         messages.append({
             'TemplateId': template.get(language, template['en']),
-            'From': 'Uhtred M <newsletter@uhtred.dev>',
+            'From': EMAIL_FROM,
             'To': email.email,
             'Tag': 'Insight Published',
             'TemplateModel': {
