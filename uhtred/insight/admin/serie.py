@@ -78,7 +78,7 @@ class SerieAdmin(admin.ModelAdmin, DynamicRawIDMixin):
             kwargs['queryset'] = User.objects.filter(id=request.user.id)
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
-    def image(self, obj: Insight):
+    def image(self, obj: Serie):
         if obj.cover:
             return obj.cover.admin_image_preview()
         return '-'
