@@ -123,6 +123,10 @@ class Insight(BaseFieldsAbstractModel):
         verbose_name=_('is featured'),
         default=False)
 
+    notify_newsletter = models.BooleanField(
+        _('notify newsletter'),
+        default=True)
+
     show_updated_at = models.BooleanField(
         _('show updated at'),
         default=False)

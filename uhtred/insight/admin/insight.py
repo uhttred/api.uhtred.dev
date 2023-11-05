@@ -75,6 +75,7 @@ class InsightAdmin(admin.ModelAdmin, DynamicRawIDMixin):
                 'topics',)}),
         (_('State and Date'), {
             'fields': (
+                'notify_newsletter',
                 'is_active',
                 'is_completed',
                 'is_featured',

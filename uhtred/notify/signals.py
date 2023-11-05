@@ -19,4 +19,5 @@ def on_newsletter_subscription(sender, instance: Email, created: bool, **kwargs)
 
 @receiver(insight_published)
 def on_insight_published(sender, insight: Insight, **kwargs):
-    send_newsletter_article_published(insight)
+    if insight.notify_newsletter:
+        send_newsletter_article_published(insight)
