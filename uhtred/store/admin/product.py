@@ -13,9 +13,9 @@ class ProductAdmin(admin.ModelAdmin):
         'name',
         'created_at',
         'updated_at')
-    
+
     date_hierarchy = 'created_at'
-    ordering = ('name', 'created_at' )
+    ordering = ('name', 'created_at')
     search_fields = ('name', )
 
     fieldsets = (
@@ -24,7 +24,8 @@ class ProductAdmin(admin.ModelAdmin):
                 'id',
                 'uid',
                 'slug',
-                'name')}),
+                'name',
+                'pt_name')}),
         (_('Details'), {
             'fields': (
                 'buy_at',
@@ -33,7 +34,8 @@ class ProductAdmin(admin.ModelAdmin):
                 'image')}),
         (_('Details'), {
             'fields': (
-                'tags',)}),
+                'see_prices',
+                'topics')}),
         (_('State and Date'), {
             'fields': (
                 'is_active',
@@ -48,9 +50,8 @@ class ProductAdmin(admin.ModelAdmin):
         'created_at',
         'image',
         'updated_at')
-    
+
     def image(self, obj):
         if obj.cover:
             return obj.cover.admin_image_preview()
         return '-'
-    
