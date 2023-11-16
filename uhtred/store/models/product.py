@@ -78,6 +78,10 @@ class Product(BaseFieldsAbstractModel):
         verbose_name=_('see prices'),
         default=False)
 
+    is_featured = models.BooleanField(
+        verbose_name=_('is featured'),
+        default=False)
+
     is_active = models.BooleanField(
         verbose_name=_('is active'),
         default=True)

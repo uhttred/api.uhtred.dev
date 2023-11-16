@@ -34,6 +34,7 @@ class ProductAdmin(admin.ModelAdmin):
                 'image')}),
         (_('Details'), {
             'fields': (
+                'is_featured',
                 'see_prices',
                 'topics')}),
         (_('State and Date'), {
