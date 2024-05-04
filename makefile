@@ -71,3 +71,9 @@ shell:
 	@python manage.py shell
 check:
 	@python manage.py check
+
+renderstartapp:
+	@make install
+	@make migrate
+	# creating super manager
+	@python manage.py createsupermanager manager asdasdasd
