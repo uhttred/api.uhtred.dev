@@ -43,9 +43,7 @@ class SerieAdmin(admin.ModelAdmin, DynamicRawIDMixin):
                 'uid',
                 'slug',
                 'created_by',
-                'author',
-                'cover',
-                'image')}),
+                'author')}),
         (_('English Details'), {
             'fields': (
                 'title',
@@ -69,7 +67,6 @@ class SerieAdmin(admin.ModelAdmin, DynamicRawIDMixin):
         'id',
         'uid',
         'slug',
-        'image',
         'created_at',
         'updated_at')
 
@@ -77,8 +74,3 @@ class SerieAdmin(admin.ModelAdmin, DynamicRawIDMixin):
         if db_field.name == 'created_by':
             kwargs['queryset'] = User.objects.filter(id=request.user.id)
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
-
-    def image(self, obj: Serie):
-        if obj.cover:
-            return obj.cover.admin_image_preview()
-        return '-'
