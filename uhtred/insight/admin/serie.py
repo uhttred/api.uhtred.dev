@@ -43,7 +43,8 @@ class SerieAdmin(admin.ModelAdmin, DynamicRawIDMixin):
                 'uid',
                 'slug',
                 'created_by',
-                'author')}),
+                'author'
+            )}),
         (_('English Details'), {
             'fields': (
                 'title',
